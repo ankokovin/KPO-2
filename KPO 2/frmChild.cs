@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace KPO_2
 {
+    /// <summary>
+    /// Дочерняя форма программы
+    /// </summary>
     public partial class frmChild : Form
     {
         public frmChild()
@@ -17,11 +20,15 @@ namespace KPO_2
             InitializeComponent();
         }
 
-
+        /// <summary>
+        /// Координата предыдущего положения мыши
+        /// </summary>
         int old_X, old_Y;
 
         
-
+        /// <summary>
+        /// Событие перемещения мыши внутри изображения
+        /// </summary>
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -36,9 +43,11 @@ namespace KPO_2
                 }
             }
         }
-
+        /// <summary>
+        /// Графика рабочего изображения
+        /// </summary>
         private Graphics graphics;
-
+        
         private void frmChild_Load(object sender, EventArgs e)
         {
             pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
@@ -46,7 +55,9 @@ namespace KPO_2
             graphics.Clear(Color.White);
             pictureBox1.Refresh();
         }
-
+        /// <summary>
+        /// Функция нажатия на кнопку
+        /// </summary>
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             old_X = e.X;

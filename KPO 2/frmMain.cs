@@ -10,8 +10,14 @@ using System.Windows.Forms;
 
 namespace KPO_2
 {
+    /// <summary>
+    /// Перечисление инструментов
+    /// </summary>
     public enum Tools {None,Pen,Star,Line,Elipse,Eraser,ScaleUp,ScaleDown}
 
+    /// <summary>
+    /// Основная форма программы
+    /// </summary>
     public partial class frmMain : Form
     {
         public frmMain()
@@ -28,13 +34,17 @@ namespace KPO_2
         {
 
         }
-
+        /// <summary>
+        /// Событие нажатия на пункт "Выход"
+        /// </summary>
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Environment.Exit(0);
         }
 
-
+        /// <summary>
+        /// Событие нажатия на пункт "Новый"
+        /// </summary>
         private void новыйToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmChild frmChild = new frmChild();
@@ -43,9 +53,14 @@ namespace KPO_2
         }
 
 
-
+        /// <summary>
+        /// Графика для изображения текущего цвета
+        /// </summary>
         private Graphics ColorChangeGraphics;
         
+        /// <summary>
+        /// Функция обновления изображения текущего цвета
+        /// </summary>
         private void UpadateColorChangeIcon()
         {
             ColorChangeGraphics.DrawRectangle(Pens.Black, 0, 0, ChangeColorButton.Image.Width, ChangeColorButton.Image.Height);
@@ -61,18 +76,29 @@ namespace KPO_2
             ColorChangeGraphics = Graphics.FromImage(ChangeColorButton.Image);
             UpadateColorChangeIcon();
         }
-
+        /// <summary>
+        /// Событие нажатия на кнопку смены цвета
+        /// </summary>
         private void ChangeColorButton_Click(object sender, EventArgs e)
         {
             colorDialog1.ShowDialog();
             if (colorDialog1.Color != null) CurrentMode.Color = colorDialog1.Color;
             UpadateColorChangeIcon();
         }
-
+        /// <summary>
+        /// Стандартный цвет бэкграунда кнопок инструмента
+        /// </summary>
         private Color DefaultBGColor;
 
+        /// <summary>
+        /// Кнопка используемого инструмента
+        /// </summary>
         private ToolStripButton ActiveTool;
 
+        /// <summary>
+        /// Событие нажатия на кнопку инструмента
+        /// </summary>
+        /// <param name="sender">Нажатая кнопка</param>
         private void Button_Click(object sender, EventArgs e)
         {
             ToolStripButton button = sender as ToolStripButton;
@@ -102,16 +128,9 @@ namespace KPO_2
                 default:
                     throw new Exception("Неожиданное имя кнопки");
             }
-            
-            
             button.BackColor = Color.Red;
             if (ActiveTool != null) ActiveTool.BackColor = DefaultBGColor;
             ActiveTool = button;
-        }
-
-        private void LineButton_Click(object sender, EventArgs e)
-        {
-            
         }
     }
 }
