@@ -121,7 +121,7 @@ namespace KPO_2
                 case "LineButton":
                     CurrentMode.tool = Tools.Line;
                     break;
-                case "ElipseButton":
+                case "EllipseButton":
                     CurrentMode.tool = Tools.Elipse;
                     break;
                 case "StarButton":

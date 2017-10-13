@@ -52,7 +52,7 @@
             this.PenButton = new System.Windows.Forms.ToolStripButton();
             this.StarButton = new System.Windows.Forms.ToolStripButton();
             this.LineButton = new System.Windows.Forms.ToolStripButton();
-            this.ElipseButton = new System.Windows.Forms.ToolStripButton();
+            this.EllipseButton = new System.Windows.Forms.ToolStripButton();
             this.EraserButton = new System.Windows.Forms.ToolStripButton();
             this.ScaleUpButton = new System.Windows.Forms.ToolStripButton();
             this.ScaleDownButton = new System.Windows.Forms.ToolStripButton();
@@ -220,7 +220,7 @@
             this.PenButton,
             this.StarButton,
             this.LineButton,
-            this.ElipseButton,
+            this.EllipseButton,
             this.EraserButton,
             this.ScaleUpButton,
             this.ScaleDownButton});
@@ -261,15 +261,15 @@
             this.LineButton.Text = "Линия";
             this.LineButton.Click += new System.EventHandler(this.Button_Click);
             // 
-            // ElipseButton
+            // EllipseButton
             // 
-            this.ElipseButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ElipseButton.Image = ((System.Drawing.Image)(resources.GetObject("ElipseButton.Image")));
-            this.ElipseButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ElipseButton.Name = "ElipseButton";
-            this.ElipseButton.Size = new System.Drawing.Size(23, 22);
-            this.ElipseButton.Text = "Эллипс";
-            this.ElipseButton.Click += new System.EventHandler(this.Button_Click);
+            this.EllipseButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.EllipseButton.Image = ((System.Drawing.Image)(resources.GetObject("EllipseButton.Image")));
+            this.EllipseButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.EllipseButton.Name = "EllipseButton";
+            this.EllipseButton.Size = new System.Drawing.Size(23, 22);
+            this.EllipseButton.Text = "Эллипс";
+            this.EllipseButton.Click += new System.EventHandler(this.Button_Click);
             // 
             // EraserButton
             // 
@@ -351,6 +351,7 @@
             this.ChangeColorButton.Name = "ChangeColorButton";
             this.ChangeColorButton.Size = new System.Drawing.Size(23, 22);
             this.ChangeColorButton.Text = "Поменять цвет пера";
+            this.ChangeColorButton.Click += new System.EventHandler(this.ChangeColorButton_Click);
             // 
             // CancelButton
             // 
@@ -420,7 +421,7 @@
         private System.Windows.Forms.ToolStripButton PenButton;
         private System.Windows.Forms.ToolStripButton StarButton;
         private System.Windows.Forms.ToolStripButton LineButton;
-        private System.Windows.Forms.ToolStripButton ElipseButton;
+        private System.Windows.Forms.ToolStripButton EllipseButton;
         private System.Windows.Forms.ToolStripButton EraserButton;
         private System.Windows.Forms.ToolStripButton ScaleUpButton;
         private System.Windows.Forms.ToolStripButton ScaleDownButton;
