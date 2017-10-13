@@ -50,6 +50,7 @@ namespace KPO_2
             frmChild frmChild = new frmChild();
             frmChild.MdiParent = this;
             frmChild.Show();
+            
         }
 
 
@@ -61,7 +62,7 @@ namespace KPO_2
         /// <summary>
         /// Функция обновления изображения текущего цвета
         /// </summary>
-        private void UpadateColorChangeIcon()
+        private void UpdateColorIcon()
         {
             ColorChangeGraphics.DrawRectangle(Pens.Black, 0, 0, ChangeColorButton.Image.Width, ChangeColorButton.Image.Height);
             ColorChangeGraphics.DrawRectangle(Pens.White, 1, 1, ChangeColorButton.Image.Width - 2, ChangeColorButton.Image.Height - 2);
@@ -70,11 +71,18 @@ namespace KPO_2
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            //Устанавливаем цвет бэкграунда кнопки инструмента по-умолчананию
             DefaultBGColor = PenButton.BackColor;
-            
+            //Устанавливаем активную кнопку - без инструмента
+            ActiveTool = NoToolButton;
+            //Окрашиваем активную кнопку
+            NoToolButton.BackColor = Color.Red;
+            //Создаём изображение на кнопке изменения цвета
             ChangeColorButton.Image = new Bitmap(ChangeColorButton.Width, ChangeColorButton.Height);
+            //Получаем графику этого изображения
             ColorChangeGraphics = Graphics.FromImage(ChangeColorButton.Image);
-            UpadateColorChangeIcon();
+            //Обнавляем цвет икноки цвета
+            UpdateColorIcon();
         }
         /// <summary>
         /// Событие нажатия на кнопку смены цвета
@@ -83,7 +91,7 @@ namespace KPO_2
         {
             colorDialog1.ShowDialog();
             if (colorDialog1.Color != null) CurrentMode.Color = colorDialog1.Color;
-            UpadateColorChangeIcon();
+            UpdateColorIcon();
         }
         /// <summary>
         /// Стандартный цвет бэкграунда кнопок инструмента
@@ -104,6 +112,9 @@ namespace KPO_2
             ToolStripButton button = sender as ToolStripButton;
             switch (button.Name)
             {
+                case "NoToolButton":
+                    CurrentMode.tool = Tools.None;
+                    break;
                 case "PenButton":
                     CurrentMode.tool = Tools.Pen;
                     break;
@@ -131,6 +142,20 @@ namespace KPO_2
             button.BackColor = Color.Red;
             if (ActiveTool != null) ActiveTool.BackColor = DefaultBGColor;
             ActiveTool = button;
+        }
+        /// <summary>
+        /// Функция нажатия кнопки "Назад"
+        /// </summary>
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            CurrentMode.ActiveChild.Cancel();
+        }
+        /// <summary>
+        /// Функция нажатия кнопки "Вперёд"
+        /// </summary>
+        private void ReturnButton_Click(object sender, EventArgs e)
+        {
+            CurrentMode.ActiveChild.Return();
         }
     }
 }

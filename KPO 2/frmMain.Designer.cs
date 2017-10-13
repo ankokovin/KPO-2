@@ -48,10 +48,8 @@
             this.эффект9ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.эффект10ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.эффект11ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.PenButton = new System.Windows.Forms.ToolStripButton();
-            this.PenWidthComboBox = new System.Windows.Forms.ToolStripComboBox();
-            this.ChangeColorButton = new System.Windows.Forms.ToolStripButton();
             this.StarButton = new System.Windows.Forms.ToolStripButton();
             this.LineButton = new System.Windows.Forms.ToolStripButton();
             this.ElipseButton = new System.Windows.Forms.ToolStripButton();
@@ -60,9 +58,16 @@
             this.ScaleDownButton = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.NoToolButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.PenWidthComboBox = new System.Windows.Forms.ToolStripComboBox();
+            this.ChangeColorButton = new System.Windows.Forms.ToolStripButton();
+            this.CancelButton = new System.Windows.Forms.ToolStripButton();
+            this.ReturnButton = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
+            this.toolStrip.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -71,7 +76,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem,
             this.рисунокToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Location = new System.Drawing.Point(4, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(121, 24);
             this.menuStrip1.TabIndex = 0;
@@ -207,25 +212,24 @@
             this.эффект11ToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.эффект11ToolStripMenuItem.Text = "Эффект 11";
             // 
-            // toolStrip1
+            // toolStrip
             // 
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.NoToolButton,
             this.PenButton,
-            this.PenWidthComboBox,
-            this.ChangeColorButton,
             this.StarButton,
             this.LineButton,
             this.ElipseButton,
             this.EraserButton,
             this.ScaleUpButton,
             this.ScaleDownButton});
-            this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.toolStrip1.Location = new System.Drawing.Point(0, 26);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(350, 25);
-            this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.toolStrip.Location = new System.Drawing.Point(4, 24);
+            this.toolStrip.Name = "toolStrip";
+            this.toolStrip.Size = new System.Drawing.Size(196, 25);
+            this.toolStrip.TabIndex = 1;
+            this.toolStrip.Text = "toolStrip1";
             // 
             // PenButton
             // 
@@ -236,22 +240,6 @@
             this.PenButton.Size = new System.Drawing.Size(23, 22);
             this.PenButton.Text = "Перо";
             this.PenButton.Click += new System.EventHandler(this.Button_Click);
-            // 
-            // PenWidthComboBox
-            // 
-            this.PenWidthComboBox.Name = "PenWidthComboBox";
-            this.PenWidthComboBox.Size = new System.Drawing.Size(121, 25);
-            this.PenWidthComboBox.Text = "Толщина";
-            // 
-            // ChangeColorButton
-            // 
-            this.ChangeColorButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ChangeColorButton.Image = ((System.Drawing.Image)(resources.GetObject("ChangeColorButton.Image")));
-            this.ChangeColorButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ChangeColorButton.Name = "ChangeColorButton";
-            this.ChangeColorButton.Size = new System.Drawing.Size(23, 22);
-            this.ChangeColorButton.Text = "Поменять цвет пера";
-            this.ChangeColorButton.Click += new System.EventHandler(this.ChangeColorButton_Click);
             // 
             // StarButton
             // 
@@ -317,18 +305,78 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.toolStrip1);
+            this.panel1.Controls.Add(this.toolStrip);
             this.panel1.Controls.Add(this.menuStrip1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(548, 51);
+            this.panel1.Size = new System.Drawing.Size(839, 78);
             this.panel1.TabIndex = 2;
+            // 
+            // NoToolButton
+            // 
+            this.NoToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.NoToolButton.Image = ((System.Drawing.Image)(resources.GetObject("NoToolButton.Image")));
+            this.NoToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.NoToolButton.Name = "NoToolButton";
+            this.NoToolButton.Size = new System.Drawing.Size(23, 22);
+            this.NoToolButton.Text = "Без инструмента";
+            this.NoToolButton.Click += new System.EventHandler(this.Button_Click);
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ChangeColorButton,
+            this.PenWidthComboBox,
+            this.CancelButton,
+            this.ReturnButton});
+            this.toolStrip1.Location = new System.Drawing.Point(4, 49);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(235, 25);
+            this.toolStrip1.TabIndex = 2;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // PenWidthComboBox
+            // 
+            this.PenWidthComboBox.Name = "PenWidthComboBox";
+            this.PenWidthComboBox.Size = new System.Drawing.Size(121, 25);
+            this.PenWidthComboBox.Text = "Толщина";
+            // 
+            // ChangeColorButton
+            // 
+            this.ChangeColorButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ChangeColorButton.Image = ((System.Drawing.Image)(resources.GetObject("ChangeColorButton.Image")));
+            this.ChangeColorButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ChangeColorButton.Name = "ChangeColorButton";
+            this.ChangeColorButton.Size = new System.Drawing.Size(23, 22);
+            this.ChangeColorButton.Text = "Поменять цвет пера";
+            // 
+            // CancelButton
+            // 
+            this.CancelButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.CancelButton.Image = ((System.Drawing.Image)(resources.GetObject("CancelButton.Image")));
+            this.CancelButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(23, 22);
+            this.CancelButton.Text = "Назад";
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            // 
+            // ReturnButton
+            // 
+            this.ReturnButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ReturnButton.Image = ((System.Drawing.Image)(resources.GetObject("ReturnButton.Image")));
+            this.ReturnButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ReturnButton.Name = "ReturnButton";
+            this.ReturnButton.Size = new System.Drawing.Size(23, 22);
+            this.ReturnButton.Text = "Вперёд";
+            this.ReturnButton.Click += new System.EventHandler(this.ReturnButton_Click);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(548, 303);
+            this.ClientSize = new System.Drawing.Size(839, 478);
             this.Controls.Add(this.panel1);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
@@ -337,10 +385,12 @@
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.toolStrip.ResumeLayout(false);
+            this.toolStrip.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -366,10 +416,8 @@
         private System.Windows.Forms.ToolStripMenuItem эффект9ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem эффект10ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem эффект11ToolStripMenuItem;
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripButton PenButton;
-        private System.Windows.Forms.ToolStripComboBox PenWidthComboBox;
-        private System.Windows.Forms.ToolStripButton ChangeColorButton;
         private System.Windows.Forms.ToolStripButton StarButton;
         private System.Windows.Forms.ToolStripButton LineButton;
         private System.Windows.Forms.ToolStripButton ElipseButton;
@@ -378,6 +426,12 @@
         private System.Windows.Forms.ToolStripButton ScaleDownButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.ToolStripButton NoToolButton;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton ChangeColorButton;
+        private System.Windows.Forms.ToolStripComboBox PenWidthComboBox;
+        private System.Windows.Forms.ToolStripButton CancelButton;
+        private System.Windows.Forms.ToolStripButton ReturnButton;
     }
 }
 

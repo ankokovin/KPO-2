@@ -42,6 +42,7 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseDown);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseMove);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.frmChild_MouseUp);
             // 
             // frmChild
             // 
@@ -52,7 +53,9 @@
             this.Controls.Add(this.pictureBox1);
             this.Name = "frmChild";
             this.Text = "frmChild";
+            this.Activated += new System.EventHandler(this.frmChild_Activated);
             this.Load += new System.EventHandler(this.frmChild_Load);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.frmChild_MouseUp);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
