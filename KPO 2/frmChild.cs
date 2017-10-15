@@ -81,10 +81,17 @@ namespace KPO_2
                         old_X = e.X;
                         old_Y = e.Y;
                         break;
-                    case Tools.Line://В случае линии востанавливаем изображение из временного и затем рисуем прямую
+                    case Tools.Line://В случае линии востанавливаем изображение из 
+                        //временного и затем рисуем прямую
                         pictureBox1.Image = (Image)TempImage.Clone();
                         graphics = Graphics.FromImage(pictureBox1.Image);
                         graphics.DrawLine(CurrentMode.pen, old_X, old_Y, e.X, e.Y);
+                        break;
+                    case Tools.Elipse://Аналогично линии: востанавливаем изображение из
+                        //временного и затем рисуем овал
+                        pictureBox1.Image = (Image)TempImage.Clone();
+                        graphics = Graphics.FromImage(pictureBox1.Image);
+                        graphics.DrawEllipse(CurrentMode.pen,Math.Min(old_X,e.X),Math.Min(old_Y,e.Y),Math.Abs(old_X-e.X),Math.Abs(old_Y-e.Y));
                         break;
                 }
                 pictureBox1.Refresh();
