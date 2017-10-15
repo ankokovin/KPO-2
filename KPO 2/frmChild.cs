@@ -15,6 +15,11 @@ namespace KPO_2
     /// </summary>
     public partial class frmChild : Form
     {
+        public frmChild()
+        {
+            InitializeComponent();
+        }
+        #region Поля
         /// <summary>
         /// Стэк, хранящий предыдующие шаги
         /// </summary>
@@ -23,51 +28,14 @@ namespace KPO_2
         /// Стэк, хранящий следующий шаги
         /// </summary>
         private Stack<Image> NextStack;
-
-
-        public frmChild()
-        {
-            InitializeComponent();
-        }
-
-        /// <summary>
+         /// <summary>
         /// Координата предыдущего положения мыши
         /// </summary>
         int old_X, old_Y;
-
-        /// <summary>
-        /// Отмена изменения
-        /// </summary>
-        public void Cancel()
-        {
-            if (PrevStack.Count != 0)
-            {
-                
-                NextStack.Push((Image)pictureBox1.Image.Clone());
-                Image image = PrevStack.Pop();
-                pictureBox1.Image = image;
-                graphics = Graphics.FromImage(pictureBox1.Image);
-                pictureBox1.Refresh();
-            }
-        }
-        /// <summary>
-        /// Возвращение изменения
-        /// </summary>
-        public void Return()
-        {
-            if (NextStack.Count != 0)
-            {
-                PrevStack.Push((Image)pictureBox1.Image.Clone());
-                pictureBox1.Image = NextStack.Pop();
-                graphics = Graphics.FromImage(pictureBox1.Image);
-                pictureBox1.Refresh();
-            }
-        }
         /// <summary>
         /// Временно сохранённое текущее изображение
         /// </summary>
         private Image TempImage;
-
         /// <summary>
         /// Векторы для построения звезды
         /// </summary>
@@ -111,6 +79,41 @@ namespace KPO_2
                 startstar = result;
                 return startstar;
             }
+        }     
+        /// <summary>
+        /// Графика рабочего изображения
+        /// </summary>
+        private Graphics graphics;
+        private static int Magn = 5;
+        #endregion Поля
+
+        /// <summary>
+        /// Отмена изменения
+        /// </summary>
+        public void Cancel()
+        {
+            if (PrevStack.Count != 0)
+            {
+                
+                NextStack.Push((Image)pictureBox1.Image.Clone());
+                Image image = PrevStack.Pop();
+                pictureBox1.Image = image;
+                graphics = Graphics.FromImage(pictureBox1.Image);
+                pictureBox1.Refresh();
+            }
+        }
+        /// <summary>
+        /// Возвращение изменения
+        /// </summary>
+        public void Return()
+        {
+            if (NextStack.Count != 0)
+            {
+                PrevStack.Push((Image)pictureBox1.Image.Clone());
+                pictureBox1.Image = NextStack.Pop();
+                graphics = Graphics.FromImage(pictureBox1.Image);
+                pictureBox1.Refresh();
+            }
         }
 
         /// <summary>
@@ -147,7 +150,8 @@ namespace KPO_2
             if (e.Button == MouseButtons.Left)
             {
                 switch (CurrentMode.tool) {
-                    case Tools.Pen: //В случае пера всё просто: рисуем прямую и обновляем координаты
+                    case Tools.Pen: //В случае пера всё просто: рисуем прямую и 
+                        //обновляем координаты
                         graphics.DrawLine(CurrentMode.pen, old_X, old_Y, e.X, e.Y);
                         old_X = e.X;
                         old_Y = e.Y;
@@ -174,10 +178,7 @@ namespace KPO_2
                 pictureBox1.Refresh();
             }
         }
-        /// <summary>
-        /// Графика рабочего изображения
-        /// </summary>
-        private Graphics graphics;
+
         /// <summary>
         /// Функция загрузки окна
         /// </summary>
@@ -202,6 +203,31 @@ namespace KPO_2
         private void frmChild_MouseUp(object sender, MouseEventArgs e)
         {
             if (CurrentMode.tool == Tools.None) return;
+            if (CurrentMode.tool == Tools.ScaleUp)
+            {   //Создаём масштабированное изображение
+                Bitmap bitmap = new Bitmap(pictureBox1.Image, new Size(pictureBox1.Image.Width * Magn, pictureBox1.Image.Height * Magn));
+                //Меняем размеры пикчербокса
+                pictureBox1.Height *= Magn;
+                pictureBox1.Width *= Magn;
+                //Меняем изображение
+                pictureBox1.Image = bitmap;
+                //Обновляем графику и пикчербокс
+                graphics = Graphics.FromImage(pictureBox1.Image);
+                pictureBox1.Refresh();
+            }
+            if (CurrentMode.tool == Tools.ScaleDown)
+            {
+                //Создаём масштабированное изображение
+                Bitmap bitmap = new Bitmap(pictureBox1.Image, new Size(pictureBox1.Image.Width / Magn, pictureBox1.Image.Height / Magn));
+                //Меняем размеры пикчербокса
+                pictureBox1.Height /= Magn;
+                pictureBox1.Width /= Magn;
+                //Меняем изображение
+                pictureBox1.Image = bitmap;
+                //Обновляем графику и пикчербокс
+                graphics = Graphics.FromImage(pictureBox1.Image);
+                pictureBox1.Refresh();
+            }   
             PrevStack.Push(TempImage);
             NextStack.Clear();
         }
