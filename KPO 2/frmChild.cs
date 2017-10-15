@@ -69,6 +69,77 @@ namespace KPO_2
         private Image TempImage;
 
         /// <summary>
+        /// Векторы для построения звезды
+        /// </summary>
+        static PointF[] startstar;
+        /// <summary>
+        /// Количество концов звезды
+        /// </summary>
+        static  int StarNumber = 5;
+        /// <summary>
+        /// Свойство получения вектора для построения звезды
+        /// </summary>
+        static PointF[] GetStartStar
+        {
+            get
+            {//Если уже сохранёны векторы - просто вывести
+                if (startstar != null) return startstar;
+                //Получаемый массив векторов
+                PointF[] result = new PointF[StarNumber*2];
+                //Начальный угол
+                double u = Math.PI / 2;
+                //Изменение угла
+                double du = Math.PI / StarNumber;
+                //Радиус внешний
+                double r1 = 1;
+                //Радиус внутренний - формула вычисления из википедии
+                double r2 = Math.Cos(Math.PI / 5 * 2) / Math.Cos(Math.PI / 5) * r1;
+                for (int i = 0; i < result.Length; i++)
+                {
+                    if (i % 2 == 0)//Если чётно - по внешней окр
+                    {
+                        result[i].X = (float)(r1 * Math.Cos(u));
+                        result[i].Y = (float)(- r1 * Math.Sin(u));
+                    }
+                    else //иначе по внутренней
+                    {
+                        result[i].X = (float)(r2 * Math.Cos(u));
+                        result[i].Y = (float)(- r2 * Math.Sin(u));
+                    }
+                    u += du;
+                }
+                startstar = result;
+                return startstar;
+            }
+        }
+
+        /// <summary>
+        /// Получение массива координат вершин звезды
+        /// </summary>
+        /// <param name="x">X первой точки</param>
+        /// <param name="y">Y первой точки</param>
+        /// <param name="x1">X второй точки</param>
+        /// <param name="y1">Y второй точки</param>
+        /// <returns>Массив координат вершин звезды</returns>
+        private Point[] GetStarPoints(int x, int y,int x1, int y1)
+        {
+            //Получаем векторы для построения звезды
+            PointF[] vec = GetStartStar;
+            Point[] result = new Point[StarNumber*2];
+            //Вычисляем координаты центра звезды
+            int cx = Math.Abs(x + x1) / 2, cy = Math.Abs(y + y1) / 2;
+            //Вычисляем коэффициенты увеличения координат
+            double divertionx = Math.Abs(x - x1)/2;
+            double divertiony = Math.Abs(y - y1)/2;
+            for (int i = 0; i < result.Length; i++)
+            {
+                //Каждая координата вектора умножается на коэф и прибавляется центр
+                result[i].X = (int)Math.Round(vec[i].X * divertionx) + cx;
+                result[i].Y = (int)Math.Round(vec[i].Y * divertiony) + cy;
+            }
+            return result;
+        }
+        /// <summary>
         /// Событие перемещения мыши внутри изображения
         /// </summary>
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
@@ -92,6 +163,12 @@ namespace KPO_2
                         pictureBox1.Image = (Image)TempImage.Clone();
                         graphics = Graphics.FromImage(pictureBox1.Image);
                         graphics.DrawEllipse(CurrentMode.pen,Math.Min(old_X,e.X),Math.Min(old_Y,e.Y),Math.Abs(old_X-e.X),Math.Abs(old_Y-e.Y));
+                        break;
+                    case Tools.Star://Аналогично линии: востанавливаем изображение из
+                        //временного и затем рисуем звезду (как многоугольник)
+                        pictureBox1.Image = (Image)TempImage.Clone();
+                        graphics = Graphics.FromImage(pictureBox1.Image);
+                        graphics.DrawPolygon(CurrentMode.pen, GetStarPoints(old_X,old_Y,e.X,e.Y));
                         break;
                 }
                 pictureBox1.Refresh();
