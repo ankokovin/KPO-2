@@ -157,5 +157,49 @@ namespace KPO_2
         {
             CurrentMode.ActiveChild.Return();
         }
+
+        private void FunctionButtonClick(object sender, EventArgs e)
+        {
+            if (CurrentMode.ActiveChild == null) return;
+            ToolStripMenuItem Button = sender as ToolStripMenuItem;
+            switch (Button.Name)
+            {
+                case "эффект1ToolStripMenuItem":
+                    CurrentMode.ActiveChild.Effect1();
+                    break;
+                case "эффект2ToolStripMenuItem":
+                    CurrentMode.ActiveChild.Effect2();
+                    break;
+                case "эффект3ToolStripMenuItem":
+                    CurrentMode.ActiveChild.Effect3();
+                    break;
+                case "эффект4ToolStripMenuItem":
+                    CurrentMode.ActiveChild.Effect4();
+                    break;
+                case "эффект5ToolStripMenuItem":
+                    CurrentMode.ActiveChild.Effect5();
+                    break;
+                case "эффект6ToolStripMenuItem":
+                    CurrentMode.ActiveChild.Effect6();
+                    break;
+                case "эффект7ToolStripMenuItem":
+                    CurrentMode.ActiveChild.Effect7();
+                    break;
+                case "эффект8ToolStripMenuItem":
+                    CurrentMode.ActiveChild.Effect8();
+                    break;
+                case "эффект9ToolStripMenuItem":
+                    CurrentMode.ActiveChild.Effect9();
+                    break;
+                case "эффект10ToolStripMenuItem":
+                    CurrentMode.ActiveChild.Effect10();
+                    break;
+                case "эффект11ToolStripMenuItem":
+                    CurrentMode.ActiveChild.Effect11();
+                    break;
+                default:
+                    throw new Exception("Неизвестный пункт меню");
+            }
+        }
     }
 }

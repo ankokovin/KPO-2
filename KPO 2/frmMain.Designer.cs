@@ -49,6 +49,7 @@
             this.эффект10ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.эффект11ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.NoToolButton = new System.Windows.Forms.ToolStripButton();
             this.PenButton = new System.Windows.Forms.ToolStripButton();
             this.StarButton = new System.Windows.Forms.ToolStripButton();
             this.LineButton = new System.Windows.Forms.ToolStripButton();
@@ -57,13 +58,12 @@
             this.ScaleUpButton = new System.Windows.Forms.ToolStripButton();
             this.ScaleDownButton = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.NoToolButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.PenWidthComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.ChangeColorButton = new System.Windows.Forms.ToolStripButton();
+            this.PenWidthComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.CancelButton = new System.Windows.Forms.ToolStripButton();
             this.ReturnButton = new System.Windows.Forms.ToolStripButton();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.menuStrip1.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -149,68 +149,79 @@
             // эффект1ToolStripMenuItem
             // 
             this.эффект1ToolStripMenuItem.Name = "эффект1ToolStripMenuItem";
-            this.эффект1ToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.эффект1ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.эффект1ToolStripMenuItem.Text = "Эффект 1";
+            this.эффект1ToolStripMenuItem.Click += new System.EventHandler(this.FunctionButtonClick);
             // 
             // эффект2ToolStripMenuItem
             // 
             this.эффект2ToolStripMenuItem.Name = "эффект2ToolStripMenuItem";
-            this.эффект2ToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.эффект2ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.эффект2ToolStripMenuItem.Text = "Эффект 2";
+            this.эффект2ToolStripMenuItem.Click += new System.EventHandler(this.FunctionButtonClick);
             // 
             // эффект3ToolStripMenuItem
             // 
             this.эффект3ToolStripMenuItem.Name = "эффект3ToolStripMenuItem";
-            this.эффект3ToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.эффект3ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.эффект3ToolStripMenuItem.Text = "Эффект 3";
+            this.эффект3ToolStripMenuItem.Click += new System.EventHandler(this.FunctionButtonClick);
             // 
             // эффект4ToolStripMenuItem
             // 
             this.эффект4ToolStripMenuItem.Name = "эффект4ToolStripMenuItem";
-            this.эффект4ToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.эффект4ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.эффект4ToolStripMenuItem.Text = "Эффект 4";
+            this.эффект4ToolStripMenuItem.Click += new System.EventHandler(this.FunctionButtonClick);
             // 
             // эффект5ToolStripMenuItem
             // 
             this.эффект5ToolStripMenuItem.Name = "эффект5ToolStripMenuItem";
-            this.эффект5ToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.эффект5ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.эффект5ToolStripMenuItem.Text = "Эффект 5";
+            this.эффект5ToolStripMenuItem.Click += new System.EventHandler(this.FunctionButtonClick);
             // 
             // эффект6ToolStripMenuItem
             // 
             this.эффект6ToolStripMenuItem.Name = "эффект6ToolStripMenuItem";
-            this.эффект6ToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.эффект6ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.эффект6ToolStripMenuItem.Text = "Эффект 6";
+            this.эффект6ToolStripMenuItem.Click += new System.EventHandler(this.FunctionButtonClick);
             // 
             // эффект7ToolStripMenuItem
             // 
             this.эффект7ToolStripMenuItem.Name = "эффект7ToolStripMenuItem";
-            this.эффект7ToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.эффект7ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.эффект7ToolStripMenuItem.Text = "Эффект 7";
+            this.эффект7ToolStripMenuItem.Click += new System.EventHandler(this.FunctionButtonClick);
             // 
             // эффект8ToolStripMenuItem
             // 
             this.эффект8ToolStripMenuItem.Name = "эффект8ToolStripMenuItem";
-            this.эффект8ToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.эффект8ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.эффект8ToolStripMenuItem.Text = "Эффект 8";
+            this.эффект8ToolStripMenuItem.Click += new System.EventHandler(this.FunctionButtonClick);
             // 
             // эффект9ToolStripMenuItem
             // 
             this.эффект9ToolStripMenuItem.Name = "эффект9ToolStripMenuItem";
-            this.эффект9ToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.эффект9ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.эффект9ToolStripMenuItem.Text = "Эффект 9";
+            this.эффект9ToolStripMenuItem.Click += new System.EventHandler(this.FunctionButtonClick);
             // 
             // эффект10ToolStripMenuItem
             // 
             this.эффект10ToolStripMenuItem.Name = "эффект10ToolStripMenuItem";
-            this.эффект10ToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.эффект10ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.эффект10ToolStripMenuItem.Text = "Эффект 10";
+            this.эффект10ToolStripMenuItem.Click += new System.EventHandler(this.FunctionButtonClick);
             // 
             // эффект11ToolStripMenuItem
             // 
             this.эффект11ToolStripMenuItem.Name = "эффект11ToolStripMenuItem";
-            this.эффект11ToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.эффект11ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.эффект11ToolStripMenuItem.Text = "Эффект 11";
+            this.эффект11ToolStripMenuItem.Click += new System.EventHandler(this.FunctionButtonClick);
             // 
             // toolStrip
             // 
@@ -230,6 +241,16 @@
             this.toolStrip.Size = new System.Drawing.Size(196, 25);
             this.toolStrip.TabIndex = 1;
             this.toolStrip.Text = "toolStrip1";
+            // 
+            // NoToolButton
+            // 
+            this.NoToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.NoToolButton.Image = ((System.Drawing.Image)(resources.GetObject("NoToolButton.Image")));
+            this.NoToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.NoToolButton.Name = "NoToolButton";
+            this.NoToolButton.Size = new System.Drawing.Size(23, 22);
+            this.NoToolButton.Text = "Без инструмента";
+            this.NoToolButton.Click += new System.EventHandler(this.Button_Click);
             // 
             // PenButton
             // 
@@ -313,16 +334,6 @@
             this.panel1.Size = new System.Drawing.Size(839, 78);
             this.panel1.TabIndex = 2;
             // 
-            // NoToolButton
-            // 
-            this.NoToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.NoToolButton.Image = ((System.Drawing.Image)(resources.GetObject("NoToolButton.Image")));
-            this.NoToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.NoToolButton.Name = "NoToolButton";
-            this.NoToolButton.Size = new System.Drawing.Size(23, 22);
-            this.NoToolButton.Text = "Без инструмента";
-            this.NoToolButton.Click += new System.EventHandler(this.Button_Click);
-            // 
             // toolStrip1
             // 
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
@@ -333,15 +344,9 @@
             this.ReturnButton});
             this.toolStrip1.Location = new System.Drawing.Point(4, 49);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(235, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(204, 25);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // PenWidthComboBox
-            // 
-            this.PenWidthComboBox.Name = "PenWidthComboBox";
-            this.PenWidthComboBox.Size = new System.Drawing.Size(121, 25);
-            this.PenWidthComboBox.Text = "Толщина";
             // 
             // ChangeColorButton
             // 
@@ -352,6 +357,12 @@
             this.ChangeColorButton.Size = new System.Drawing.Size(23, 22);
             this.ChangeColorButton.Text = "Поменять цвет пера";
             this.ChangeColorButton.Click += new System.EventHandler(this.ChangeColorButton_Click);
+            // 
+            // PenWidthComboBox
+            // 
+            this.PenWidthComboBox.Name = "PenWidthComboBox";
+            this.PenWidthComboBox.Size = new System.Drawing.Size(121, 25);
+            this.PenWidthComboBox.Text = "Толщина";
             // 
             // CancelButton
             // 

@@ -87,6 +87,7 @@ namespace KPO_2
         private static int Magn = 5;
         #endregion Поля
 
+        #region Функции инструментов
         /// <summary>
         /// Отмена изменения
         /// </summary>
@@ -115,7 +116,6 @@ namespace KPO_2
                 pictureBox1.Refresh();
             }
         }
-
         /// <summary>
         /// Получение массива координат вершин звезды
         /// </summary>
@@ -178,7 +178,6 @@ namespace KPO_2
                 pictureBox1.Refresh();
             }
         }
-
         /// <summary>
         /// Функция загрузки окна
         /// </summary>
@@ -238,7 +237,6 @@ namespace KPO_2
         {
             CurrentMode.ActiveChild = this;
         }
-
         /// <summary>
         /// Функция нажатия на кнопку мыши
         /// </summary>
@@ -249,5 +247,53 @@ namespace KPO_2
             old_Y = e.Y;
             TempImage = (Image)pictureBox1.Image.Clone();
         }
+        #endregion Функции инструментов
+
+        #region Функции эффектов
+        public void Effect1()
+        {
+            throw new NotImplementedException();
+        }
+        public void Effect2()
+        {
+            throw new NotImplementedException();
+        }
+        public void Effect3()
+        {
+            throw new NotImplementedException();
+        }
+        public void Effect4()
+        {
+            throw new NotImplementedException();
+        }
+        public void Effect5()
+        {
+            throw new NotImplementedException();
+        }
+        public void Effect6()
+        {
+            throw new NotImplementedException();
+        }
+        public void Effect7()
+        {
+            throw new NotImplementedException();
+        }
+        public void Effect8()
+        {
+            throw new NotImplementedException();
+        }
+        public void Effect9()
+        {
+            throw new NotImplementedException();
+        }
+        public void Effect10()
+        {
+            throw new NotImplementedException();
+        }
+        public void Effect11()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion Функции эффектов
     }
 }
