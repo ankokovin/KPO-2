@@ -250,17 +250,119 @@ namespace KPO_2
         #endregion Функции инструментов
 
         #region Функции эффектов
+        /// <summary>
+        /// Функция эффекта №1 - инверсия???
+        /// </summary>
         public void Effect1()
         {
-            throw new NotImplementedException();
+            Bitmap bitmap = new Bitmap(pictureBox1.Image);
+            pictureBox1.Image = bitmap;
+            Bitmap tempbmp = new Bitmap(pictureBox1.Image);
+            int dispX = 1, dispY = 1, red, green, blue;
+            for (int i = 0; i < tempbmp.Height - 1; i++)
+            {
+                for (int j = 0; j < tempbmp.Width - 1; j++)
+                {
+                    Color pixel1 = tempbmp.GetPixel(j, i);
+                    Color pixel2 = tempbmp.GetPixel(j + dispX, i + dispY);
+                    red = Math.Min(Math.Abs(pixel1.R - pixel2.R) + 128, 255);
+                    green = Math.Min(Math.Abs(pixel1.G - pixel2.G) + 128, 255);
+                    blue = Math.Min(Math.Abs(pixel1.B - pixel2.B) + 128, 255);
+                    bitmap.SetPixel(j, i, Color.FromArgb(red, green, blue));
+                }
+                if (i % 10 == 0)
+                {
+                    pictureBox1.Invalidate();
+                    pictureBox1.Refresh();
+                    Text = (100 * i / (pictureBox1.Image.Height - 2)).ToString() + "%";
+                }
+                pictureBox1.Refresh();
+            }
         }
+        /// <summary>
+        /// Функция эффекта 2 - усиление зелёного?
+        /// </summary>
         public void Effect2()
         {
-            throw new NotImplementedException();
+            Bitmap bitmap = new Bitmap(pictureBox1.Image);
+            pictureBox1.Image = bitmap;
+            Bitmap tempbmp = new Bitmap(pictureBox1.Image);
+            int DX = 1, DY = 1;
+            int red, blue, green;
+            for (int i = DX; i < tempbmp.Height - DX; i++)
+            {
+                for (int j = DY; j < tempbmp.Width - DY; j++)
+                {
+                    red = (int)(tempbmp.GetPixel(j, i).R + 0.5 * 
+                        (tempbmp.GetPixel(j, i).R - tempbmp.GetPixel(j - DX, i - DY).R));
+                    green = (int)(tempbmp.GetPixel(j, i).G + 0.7 *
+                        (tempbmp.GetPixel(j, i).G - tempbmp.GetPixel(j - DX, i - DY).G));
+                    blue = (int)(tempbmp.GetPixel(j, i).B + 0.5 *
+                        (tempbmp.GetPixel(j, i).B - tempbmp.GetPixel(j - DX, i - DY).B));
+                }
+                if (i % 10 == 0)
+                {
+                    pictureBox1.Invalidate();
+                    Text = (100 * i / (tempbmp.Height - 2)).ToString() + "%";
+                    pictureBox1.Refresh();
+                }
+            }
+            pictureBox1.Refresh();
         }
+        /// <summary>
+        /// Функция эффекта 3  - "размазывание"??
+        /// </summary>
         public void Effect3()
         {
-            throw new NotImplementedException();
+            Bitmap bitmap = new Bitmap(pictureBox1.Image);
+            pictureBox1.Image = bitmap;
+            Bitmap tempbmp = new Bitmap(pictureBox1.Image);
+            int DX = 1, DY = 1;
+            int red, blue, green;
+            for (int i = DX; i < tempbmp.Height - DX; i++)
+            {
+                for (int j = DY; j < tempbmp.Width - DY; j++)
+                {
+                    red = (tempbmp.GetPixel(j - 1, i - 1).R +
+                        tempbmp.GetPixel(j - 1, i).R +
+                        tempbmp.GetPixel(j - 1, i + 1).R +
+                        tempbmp.GetPixel(j, i - 1).R +
+                        tempbmp.GetPixel(j, i).R +
+                        tempbmp.GetPixel(j, i + 1).R +
+                        tempbmp.GetPixel(j + 1, i - 1).R +
+                        tempbmp.GetPixel(j + 1, i).R +
+                        tempbmp.GetPixel(j + 1, i + 1).R) / 9;
+                    green = (tempbmp.GetPixel(j - 1, i - 1).G +
+                        tempbmp.GetPixel(j - 1, i).G +
+                        tempbmp.GetPixel(j - 1, i + 1).G +
+                        tempbmp.GetPixel(j, i - 1).G +
+                        tempbmp.GetPixel(j, i).G +
+                        tempbmp.GetPixel(j, i + 1).G +
+                        tempbmp.GetPixel(j + 1, i - 1).G +
+                        tempbmp.GetPixel(j + 1, i).G +
+                        tempbmp.GetPixel(j + 1, i + 1).G) / 9;
+                    blue = (tempbmp.GetPixel(j - 1, i - 1).B +
+                        tempbmp.GetPixel(j - 1, i).B +
+                        tempbmp.GetPixel(j - 1, i + 1).B +
+                        tempbmp.GetPixel(j, i - 1).B +
+                        tempbmp.GetPixel(j, i).B +
+                        tempbmp.GetPixel(j, i + 1).B +
+                        tempbmp.GetPixel(j + 1, i - 1).B +
+                        tempbmp.GetPixel(j + 1, i).B +
+                        tempbmp.GetPixel(j + 1, i + 1).B) / 9;
+                    red = Math.Min(Math.Max(red, 0), 255);
+                    green = Math.Min(Math.Max(green, 0), 255);
+                    blue = Math.Min(Math.Max(blue, 0), 255);
+                    bitmap.SetPixel(j, i, Color.FromArgb(red, green, blue));
+                }
+                if (i % 10 == 0)
+                {
+                    pictureBox1.Invalidate();
+                    Text = (100 * i / (pictureBox1.Height - 2)).ToString() + "%";
+                    pictureBox1.Refresh();
+                }
+            }
+            pictureBox1.Refresh();
         }
         public void Effect4()
         {
