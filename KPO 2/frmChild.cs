@@ -84,7 +84,14 @@ namespace KPO_2
         /// Графика рабочего изображения
         /// </summary>
         private Graphics graphics;
+        /// <summary>
+        /// Множитель увеличения
+        /// </summary>
         private static int Magn = 5;
+        /// <summary>
+        /// Генератор случайных чисел, используемый в форме
+        /// </summary>
+        private static Random random = new Random();
         #endregion Поля
 
         #region Функции инструментов
@@ -173,6 +180,9 @@ namespace KPO_2
                         pictureBox1.Image = (Image)TempImage.Clone();
                         graphics = Graphics.FromImage(pictureBox1.Image);
                         graphics.DrawPolygon(CurrentMode.pen, GetStarPoints(old_X,old_Y,e.X,e.Y));
+                        break;
+                    case Tools.Eraser://для ластика - прорисовываем белые круги
+                        graphics.FillEllipse(Brushes.White, e.X - CurrentMode.Width, e.Y - CurrentMode.Width, 2 * CurrentMode.Width, 2 * CurrentMode.Width);
                         break;
                 }
                 pictureBox1.Refresh();
@@ -364,37 +374,90 @@ namespace KPO_2
             }
             pictureBox1.Refresh();
         }
+        /// <summary>
+        /// Функция эффекта 4 - возвращение в нормальный режим просмотра
+        /// </summary>
         public void Effect4()
         {
-            throw new NotImplementedException();
+            pictureBox1.Width = pictureBox1.Image.Width;
+            pictureBox1.Height = pictureBox1.Image.Height;
         }
+        /// <summary>
+        /// Функция эффекта 5 - отдаление
+        /// </summary>
         public void Effect5()
         {
-            throw new NotImplementedException();
+            pictureBox1.Width /= 2;
+            pictureBox1.Height /= 2;
         }
+        /// <summary>
+        /// Функция эффекта 6 - приближение
+        /// </summary>
         public void Effect6()
         {
-            throw new NotImplementedException();
+            pictureBox1.Width *= 2;
+            pictureBox1.Height *= 2;
         }
+        /// <summary>
+        /// Функция эффекта 7 - блюр??
+        /// </summary>
         public void Effect7()
         {
-            throw new NotImplementedException();
+            Bitmap bmap = new Bitmap(pictureBox1.Image);
+            pictureBox1.Image = bmap;
+            Bitmap tempbmp = new Bitmap(pictureBox1.Image);
+            int DX, DY, red, green, blue;
+            for (int i = 3; i < bmap.Height - 2; i++)
+            {
+                for (int j=3; j < bmap.Width - 2; j++)
+                {
+                    DX = random.Next(5) - 2;
+                    DY = random.Next(5) - 2;
+                    red = tempbmp.GetPixel(j + DX, i + DY).R;
+                    green = tempbmp.GetPixel(j + DX, i + DY).G;
+                    blue = tempbmp.GetPixel(j + DX, i + DY).B;
+                    bmap.SetPixel(j, i, Color.FromArgb(red, green, blue));
+                }
+                if (i % 10 == 0)
+                {
+                    pictureBox1.Invalidate();
+                    pictureBox1.Refresh();
+                    Text = (100 * i / (bmap.Height - 2)).ToString() + "%";
+                }
+            }
+            pictureBox1.Refresh();
         }
+        /// <summary>
+        /// Функция эффекта 8 - поворот на 270 (кривой, надо фиксить)
+        /// </summary>
         public void Effect8()
         {
-            throw new NotImplementedException();
+            pictureBox1.Image.RotateFlip(RotateFlipType.Rotate270FlipNone);
+            pictureBox1.Width = pictureBox1.Height * pictureBox1.Image.Width / pictureBox1.Image.Height;
         }
+        /// <summary>
+        /// Функция эффекта 9 - поворот на 90 (кривой, надо фиксить)
+        /// </summary>
         public void Effect9()
         {
-            throw new NotImplementedException();
+            pictureBox1.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            pictureBox1.Width = pictureBox1.Height * pictureBox1.Image.Width / pictureBox1.Image.Height;
         }
+        /// <summary>
+        /// Функция эффекта 10 - отражение по вертикали
+        /// </summary>
         public void Effect10()
         {
-            throw new NotImplementedException();
+            pictureBox1.Image.RotateFlip(RotateFlipType.RotateNoneFlipX);
+            pictureBox1.Refresh();
         }
+        /// <summary>
+        /// Функция эффекта 11 - отражение по горизонтали
+        /// </summary>
         public void Effect11()
         {
-            throw new NotImplementedException();
+            pictureBox1.Image.RotateFlip(RotateFlipType.RotateNoneFlipY);
+            pictureBox1.Refresh();
         }
         #endregion Функции эффектов
     }
