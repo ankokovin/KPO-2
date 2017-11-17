@@ -58,15 +58,17 @@
             this.ScaleUpButton = new System.Windows.Forms.ToolStripButton();
             this.ScaleDownButton = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.domainPenWidth = new System.Windows.Forms.DomainUpDown();
+            this.pbPenWidthImage = new System.Windows.Forms.PictureBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.ChangeColorButton = new System.Windows.Forms.ToolStripButton();
-            this.PenWidthComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.CancelButton = new System.Windows.Forms.ToolStripButton();
             this.ReturnButton = new System.Windows.Forms.ToolStripButton();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.menuStrip1.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPenWidthImage)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -325,6 +327,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.domainPenWidth);
+            this.panel1.Controls.Add(this.pbPenWidthImage);
             this.panel1.Controls.Add(this.toolStrip1);
             this.panel1.Controls.Add(this.toolStrip);
             this.panel1.Controls.Add(this.menuStrip1);
@@ -334,17 +338,33 @@
             this.panel1.Size = new System.Drawing.Size(839, 78);
             this.panel1.TabIndex = 2;
             // 
+            // domainPenWidth
+            // 
+            this.domainPenWidth.Location = new System.Drawing.Point(194, 49);
+            this.domainPenWidth.Name = "domainPenWidth";
+            this.domainPenWidth.Size = new System.Drawing.Size(47, 20);
+            this.domainPenWidth.TabIndex = 4;
+            this.domainPenWidth.Text = "domainPenWidth";
+            this.domainPenWidth.TextChanged += new System.EventHandler(this.domainPenWidth_TextChanged);
+            // 
+            // pbPenWidthImage
+            // 
+            this.pbPenWidthImage.Location = new System.Drawing.Point(88, 49);
+            this.pbPenWidthImage.Name = "pbPenWidthImage";
+            this.pbPenWidthImage.Size = new System.Drawing.Size(100, 25);
+            this.pbPenWidthImage.TabIndex = 3;
+            this.pbPenWidthImage.TabStop = false;
+            // 
             // toolStrip1
             // 
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ChangeColorButton,
-            this.PenWidthComboBox,
             this.CancelButton,
             this.ReturnButton});
             this.toolStrip1.Location = new System.Drawing.Point(4, 49);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(204, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(81, 25);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -357,12 +377,6 @@
             this.ChangeColorButton.Size = new System.Drawing.Size(23, 22);
             this.ChangeColorButton.Text = "Поменять цвет пера";
             this.ChangeColorButton.Click += new System.EventHandler(this.ChangeColorButton_Click);
-            // 
-            // PenWidthComboBox
-            // 
-            this.PenWidthComboBox.Name = "PenWidthComboBox";
-            this.PenWidthComboBox.Size = new System.Drawing.Size(121, 25);
-            this.PenWidthComboBox.Text = "Толщина";
             // 
             // CancelButton
             // 
@@ -401,6 +415,7 @@
             this.toolStrip.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPenWidthImage)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -441,9 +456,10 @@
         private System.Windows.Forms.ToolStripButton NoToolButton;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton ChangeColorButton;
-        private System.Windows.Forms.ToolStripComboBox PenWidthComboBox;
         private System.Windows.Forms.ToolStripButton CancelButton;
         private System.Windows.Forms.ToolStripButton ReturnButton;
+        private System.Windows.Forms.PictureBox pbPenWidthImage;
+        private System.Windows.Forms.DomainUpDown domainPenWidth;
     }
 }
 

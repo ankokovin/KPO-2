@@ -25,19 +25,28 @@ namespace KPO_2
             InitializeComponent();
         }
 
+        private List<Bitmap> WidthLook;
         
         private void UpdateWidthLook()
         {
-            PenWidthComboBox.Items.Clear();
+            WidthLook.Clear();
             for (int i = 0; i < CurrentMode.WidthOptions.Length; i++)
             {
                 Pen pen = new Pen(CurrentMode.Color, CurrentMode.WidthOptions[i]);
-                Bitmap bitmap = new Bitmap(PenWidthComboBox.Width, PenWidthComboBox.Height);
+                Bitmap bitmap = new Bitmap(pbPenWidthImage.Width, pbPenWidthImage.Height);
                 Graphics graphics = Graphics.FromImage(bitmap);
                 graphics.DrawLine(pen, 0, bitmap.Height / 2, bitmap.Width, bitmap.Height / 2);
-                PenWidthComboBox.Items.Add(bitmap);
+                WidthLook.Add(bitmap);
             }
+            UpdatePenWidthImage();
         }
+
+        private void UpdatePenWidthImage()
+        {
+            pbPenWidthImage.Image = WidthLook[CurrentMode.curWidth];
+            pbPenWidthImage.Update();
+        }
+
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
@@ -98,7 +107,16 @@ namespace KPO_2
             //Обнавляем цвет икноки цвета
             UpdateColorIcon();
 
+            WidthLook = new List<Bitmap>(CurrentMode.WidthOptions.Length);
+
             UpdateWidthLook();
+
+            foreach (float x in CurrentMode.WidthOptions) 
+                {
+                    domainPenWidth.Items.Add(x);
+                }
+            domainPenWidth.SelectedIndex = 0;
+
         }
         /// <summary>
         /// Событие нажатия на кнопку смены цвета
@@ -108,6 +126,7 @@ namespace KPO_2
             colorDialog1.ShowDialog();
             if (colorDialog1.Color != null) CurrentMode.Color = colorDialog1.Color;
             UpdateColorIcon();
+            UpdateWidthLook();
         }
         /// <summary>
         /// Стандартный цвет бэкграунда кнопок инструмента
@@ -216,6 +235,12 @@ namespace KPO_2
                 default:
                     throw new Exception("Неизвестный пункт меню");
             }
+        }
+
+        private void domainPenWidth_TextChanged(object sender, EventArgs e)
+        {
+            CurrentMode.ChangeWidth(domainPenWidth.SelectedIndex);
+            UpdatePenWidthImage();
         }
     }
 }

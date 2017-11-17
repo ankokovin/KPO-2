@@ -22,7 +22,7 @@ namespace KPO_2
         /// <para>Указывает на массив <see cref="WidthOptions"/></para>
         /// <para>Используется в <see cref="Width"/></para>
         /// </summary>
-        static private int curWidth;
+        public static  int curWidth;
         /// <summary>
         /// Функция изменения индекса текущей ширины
         /// <para>Изменяет значение <see cref="curWidth"/></para>
@@ -35,6 +35,7 @@ namespace KPO_2
                 throw new ArgumentException("Неожиданное значение индекса ширины");
             }
             curWidth = newWidth;
+            UpdatePen();
         }
         /// <summary>
         /// Текущий цвет
