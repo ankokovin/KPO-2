@@ -25,11 +25,18 @@ namespace KPO_2
             InitializeComponent();
         }
 
-        private List<Bitmap> WidthLook;
         
         private void UpdateWidthLook()
         {
-            throw new NotImplementedException();
+            PenWidthComboBox.Items.Clear();
+            for (int i = 0; i < CurrentMode.WidthOptions.Length; i++)
+            {
+                Pen pen = new Pen(CurrentMode.Color, CurrentMode.WidthOptions[i]);
+                Bitmap bitmap = new Bitmap(PenWidthComboBox.Width, PenWidthComboBox.Height);
+                Graphics graphics = Graphics.FromImage(bitmap);
+                graphics.DrawLine(pen, 0, bitmap.Height / 2, bitmap.Width, bitmap.Height / 2);
+                PenWidthComboBox.Items.Add(bitmap);
+            }
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -90,6 +97,8 @@ namespace KPO_2
             ColorChangeGraphics = Graphics.FromImage(ChangeColorButton.Image);
             //Обнавляем цвет икноки цвета
             UpdateColorIcon();
+
+            UpdateWidthLook();
         }
         /// <summary>
         /// Событие нажатия на кнопку смены цвета
