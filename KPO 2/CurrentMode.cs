@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System;
 
 namespace KPO_2
 {
@@ -12,14 +13,29 @@ namespace KPO_2
         /// </summary>
         static CurrentMode()
         {
-            width = 1;
+            curWidth = 0;
             color = Color.Black;
             UpdatePen();
         }
         /// <summary>
-        /// Текущая ширина пера
+        /// Индекс текущей ширины
+        /// <para>Указывает на массив <see cref="WidthOptions"/></para>
+        /// <para>Используется в <see cref="Width"/></para>
         /// </summary>
-        static private float width;
+        static private int curWidth;
+        /// <summary>
+        /// Функция изменения индекса текущей ширины
+        /// <para>Изменяет значение <see cref="curWidth"/></para>
+        /// </summary>
+        /// <param name="newWidth">Но</param>
+        static public void ChangeWidth(int newWidth)
+        {
+            if (curWidth < 0 || curWidth >= WidthOptions.Length)
+            {
+                throw new ArgumentException("Неожиданное значение индекса ширины");
+            }
+            curWidth = newWidth;
+        }
         /// <summary>
         /// Текущий цвет
         /// </summary>
@@ -46,12 +62,7 @@ namespace KPO_2
         {
             get
             {
-                return width;
-            }
-            set
-            {
-                width = value;
-                UpdatePen();
+                return WidthOptions[curWidth];
             }
         }
         /// <summary>
@@ -59,7 +70,7 @@ namespace KPO_2
         /// </summary>
         static private void UpdatePen()
         {
-            pen = new Pen(color, width);
+            pen = new Pen(color, Width);
         }
         /// <summary>
         /// Текущее перо
@@ -73,5 +84,11 @@ namespace KPO_2
         /// Текущее активное окно
         /// </summary>
         public static frmChild ActiveChild;
+        /// <summary>
+        /// Варианты значений ширины (захардкодены).
+        /// <para>Используется в свойстве <see cref="Width"/></para>
+        /// <para>Индекс текущей ширины хранится в <see cref="curWidth"/></para>
+        /// </summary>
+        public static float[] WidthOptions = { 1, 2, 4, 8, 16, 32 };
     }
 }

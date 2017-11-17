@@ -25,6 +25,13 @@ namespace KPO_2
             InitializeComponent();
         }
 
+        private List<Bitmap> WidthLook;
+        
+        private void UpdateWidthLook()
+        {
+            throw new NotImplementedException();
+        }
+
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
