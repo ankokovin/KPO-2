@@ -83,7 +83,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(121, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // файлToolStripMenuItem
             // 
@@ -96,7 +95,6 @@
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
             this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.файлToolStripMenuItem.Text = "Файл";
-            this.файлToolStripMenuItem.Click += new System.EventHandler(this.файлToolStripMenuItem_Click);
             // 
             // новыйToolStripMenuItem
             // 
@@ -342,6 +340,7 @@
             // 
             this.domainPenWidth.Location = new System.Drawing.Point(194, 49);
             this.domainPenWidth.Name = "domainPenWidth";
+            this.domainPenWidth.ReadOnly = true;
             this.domainPenWidth.Size = new System.Drawing.Size(47, 20);
             this.domainPenWidth.TabIndex = 4;
             this.domainPenWidth.Text = "domainPenWidth";
@@ -423,14 +422,37 @@
         }
 
         #endregion
-
+        /// <summary>
+        /// Главное меню
+        /// </summary>
         private System.Windows.Forms.MenuStrip menuStrip1;
+        /// <summary>
+        /// Выпадающее меню основных действий с файлами
+        /// </summary>
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
+        /// <summary>
+        /// Пункт выбора создания нового изображения
+        /// </summary>
         private System.Windows.Forms.ToolStripMenuItem новыйToolStripMenuItem;
+        /// <summary>
+        /// Пункт выбора открытия уже существующего изображения
+        /// </summary>
         private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
+        /// <summary>
+        /// Пункт выбора сохранения текущего изображения с уточнением
+        /// </summary>
         private System.Windows.Forms.ToolStripMenuItem сохранитьКакToolStripMenuItem;
+        /// <summary>
+        /// Пукнт выбора сохранения текущего изображения
+        /// </summary>
         private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
+        /// <summary>
+        /// Пукнт выбора выхода из программы
+        /// </summary>
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
+        /// <summary>
+        /// Пункт выбора используемого эффекта
+        /// </summary>
         private System.Windows.Forms.ToolStripMenuItem рисунокToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem эффект1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem эффект2ToolStripMenuItem;
@@ -443,22 +465,73 @@
         private System.Windows.Forms.ToolStripMenuItem эффект9ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem эффект10ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem эффект11ToolStripMenuItem;
+        /// <summary>
+        /// Панель основных инструментов
+        /// </summary>
         private System.Windows.Forms.ToolStrip toolStrip;
+        /// <summary>
+        /// Кнопка инструмента <see cref="Tools.Pen"/>
+        /// </summary>
         private System.Windows.Forms.ToolStripButton PenButton;
+        /// <summary>
+        /// Кнопка инструмента <see cref="Tools.Star"/>         
+        /// </summary>
         private System.Windows.Forms.ToolStripButton StarButton;
+        /// <summary>
+        /// Кнопка инструмента <see cref="Tools.Line"/>
+        /// </summary>
         private System.Windows.Forms.ToolStripButton LineButton;
+        /// <summary>
+        /// Кнопка инструмента <see cref="Tools.Elipse"/>
+        /// </summary>
         private System.Windows.Forms.ToolStripButton EllipseButton;
+        /// <summary>
+        /// Кнопка инструмента <see cref="Tools.Eraser"/>
+        /// </summary>
         private System.Windows.Forms.ToolStripButton EraserButton;
+        /// <summary>
+        /// Кнопка инструмента <see cref="Tools.ScaleUp"/>
+        /// </summary>
         private System.Windows.Forms.ToolStripButton ScaleUpButton;
+        /// <summary>
+        /// Кнопка инструмента <see cref="Tools.ScaleDown"/>
+        /// </summary>
         private System.Windows.Forms.ToolStripButton ScaleDownButton;
+        /// <summary>
+        /// Верхняя панель окна
+        /// </summary>
         private System.Windows.Forms.Panel panel1;
+        /// <summary>
+        /// Диалог изменения цвета
+        /// </summary>
         private System.Windows.Forms.ColorDialog colorDialog1;
+        /// <summary>
+        /// Кнопка инструмента <see cref="Tools.None"/>
+        /// </summary>
         private System.Windows.Forms.ToolStripButton NoToolButton;
+        /// <summary>
+        /// Панель дополнительных настроек
+        /// </summary>
         private System.Windows.Forms.ToolStrip toolStrip1;
+        /// <summary>
+        /// Кнопка вызова <see cref="colorDialog1"/>
+        /// </summary>
         private System.Windows.Forms.ToolStripButton ChangeColorButton;
+        /// <summary>
+        /// Кнопка отмены
+        /// </summary>
         private System.Windows.Forms.ToolStripButton CancelButton;
+        /// <summary>
+        /// Кнопка возвращения после отмены
+        /// </summary>
         private System.Windows.Forms.ToolStripButton ReturnButton;
+        /// <summary>
+        /// Пикчурбокс для отображения текущей ширины
+        /// </summary>
         private System.Windows.Forms.PictureBox pbPenWidthImage;
+        /// <summary>
+        /// Домейн для изменения ширины
+        /// </summary>
         private System.Windows.Forms.DomainUpDown domainPenWidth;
     }
 }

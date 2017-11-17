@@ -90,6 +90,6 @@ namespace KPO_2
         /// <para>Используется в свойстве <see cref="Width"/></para>
         /// <para>Индекс текущей ширины хранится в <see cref="curWidth"/></para>
         /// </summary>
-        public static float[] WidthOptions = { 1, 2, 4, 8, 16, 32 };
+        public static float[] WidthOptions = { 1,2,2.5F,3,3.5F,4};
     }
 }

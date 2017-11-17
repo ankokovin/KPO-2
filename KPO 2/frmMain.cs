@@ -24,39 +24,46 @@ namespace KPO_2
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Список отображений ширины
+        /// </summary>
         private List<Bitmap> WidthLook;
-        
+        /// <summary>
+        /// Функция обновления <see cref="WidthLook"/>
+        /// </summary>
         private void UpdateWidthLook()
         {
+            //очищаем список
             WidthLook.Clear();
+            //для каждой опции ширины
             for (int i = 0; i < CurrentMode.WidthOptions.Length; i++)
-            {
+            {   //создаём ручку
                 Pen pen = new Pen(CurrentMode.Color, CurrentMode.WidthOptions[i]);
+                //создаём изображение
                 Bitmap bitmap = new Bitmap(pbPenWidthImage.Width, pbPenWidthImage.Height);
+                //создаём его графику
                 Graphics graphics = Graphics.FromImage(bitmap);
+                //по середине изображения рисуем горизонтальную линию
                 graphics.DrawLine(pen, 0, bitmap.Height / 2, bitmap.Width, bitmap.Height / 2);
+                //добавляем полученное изображение в список
                 WidthLook.Add(bitmap);
             }
+            //обновляем отображение 
             UpdatePenWidthImage();
         }
-
+        /// <summary>
+        /// Функция обновления отображения текущей ширины на <see cref="pbPenWidthImage"/>
+        /// <para>Используется изображение из <see cref="WidthLook"/>, соответствуещее текущей ширине</para>
+        /// </summary>
         private void UpdatePenWidthImage()
         {
+            //Изображения пикчербокса присвоим соответствующее изображение из списка
             pbPenWidthImage.Image = WidthLook[CurrentMode.curWidth];
+            //Обновим пикчербокс
             pbPenWidthImage.Update();
         }
 
 
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void файлToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
         /// <summary>
         /// Событие нажатия на пункт "Выход"
         /// </summary>
@@ -91,7 +98,9 @@ namespace KPO_2
             ColorChangeGraphics.DrawRectangle(Pens.White, 1, 1, ChangeColorButton.Image.Width - 2, ChangeColorButton.Image.Height - 2);
             ColorChangeGraphics.FillRectangle(new SolidBrush(CurrentMode.Color), 2, 2, ChangeColorButton.Image.Width - 4, ChangeColorButton.Image.Height - 4);
         }
-
+        /// <summary>
+        /// Функция обработки события загрузки окна <see cref="frmMain"/>
+        /// </summary>
         private void frmMain_Load(object sender, EventArgs e)
         {
             //Устанавливаем цвет бэкграунда кнопки инструмента по-умолчананию
@@ -106,17 +115,16 @@ namespace KPO_2
             ColorChangeGraphics = Graphics.FromImage(ChangeColorButton.Image);
             //Обнавляем цвет икноки цвета
             UpdateColorIcon();
-
+            //Создаём список отображения ширины
             WidthLook = new List<Bitmap>(CurrentMode.WidthOptions.Length);
-
+            //Обновляем этот список
             UpdateWidthLook();
-
+            //Заполняем домейн ширин
             foreach (float x in CurrentMode.WidthOptions) 
                 {
                     domainPenWidth.Items.Add(x);
                 }
             domainPenWidth.SelectedIndex = 0;
-
         }
         /// <summary>
         /// Событие нажатия на кнопку смены цвета
@@ -139,7 +147,7 @@ namespace KPO_2
         private ToolStripButton ActiveTool;
 
         /// <summary>
-        /// Событие нажатия на кнопку инструмента
+        /// Функция нажатия на кнопку инструмента
         /// </summary>
         /// <param name="sender">Нажатая кнопка</param>
         private void Button_Click(object sender, EventArgs e)
@@ -192,7 +200,9 @@ namespace KPO_2
         {
             CurrentMode.ActiveChild.Return();
         }
-
+        /// <summary>
+        /// Функция обработки события нажатия на кнопку функции
+        /// </summary>
         private void FunctionButtonClick(object sender, EventArgs e)
         {
             if (CurrentMode.ActiveChild == null) return;
@@ -236,10 +246,14 @@ namespace KPO_2
                     throw new Exception("Неизвестный пункт меню");
             }
         }
-
+        /// <summary>
+        /// Функция обработки события изменения <see cref="domainPenWidth"/>
+        /// </summary>
         private void domainPenWidth_TextChanged(object sender, EventArgs e)
         {
+            //Изменяем текущую ширину на выбранную
             CurrentMode.ChangeWidth(domainPenWidth.SelectedIndex);
+            //Обновляем отображение текущей ширины
             UpdatePenWidthImage();
         }
     }
