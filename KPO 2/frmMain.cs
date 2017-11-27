@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace KPO_2
 {
@@ -77,6 +79,7 @@ namespace KPO_2
         /// </summary>
         private void новыйToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            CurrentMode.NewFilesCounterInc();
             frmChild frmChild = new frmChild();
             frmChild.MdiParent = this;
             frmChild.Show();
@@ -255,6 +258,67 @@ namespace KPO_2
             CurrentMode.ChangeWidth(domainPenWidth.SelectedIndex);
             //Обновляем отображение текущей ширины
             UpdatePenWidthImage();
+        }
+        /// <summary>
+        /// Функция обработки события открытия файла
+        /// </summary>
+        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                FileStream stream =  openFileDialog1.OpenFile() as FileStream;
+                Bitmap bitmap = new Bitmap(stream);
+                frmChild frmChild = new frmChild(bitmap);
+                frmChild.MdiParent = this;
+                frmChild.FileName = openFileDialog1.FileName;
+                frmChild.Text = frmChild.FileName;
+                frmChild.Show();
+            }
+            
+        }
+        /// <summary>
+        /// Функция обработки события нажатия на кнопку "сохранить"
+        /// <see cref="сохранитьToolStripMenuItem"/>
+        /// </summary>
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {   //если новый файл - то по тому же сценарию, как в "сохранить как..."
+            if (CurrentMode.ActiveChild.GetNewFile)
+            {
+                сохранитьКакToolStripMenuItem_Click(sender, e);
+            }else
+            {   //иначе просто сохраняем
+                CurrentMode.ActiveChild.FormImage.Save(CurrentMode.ActiveChild.FileName,ImageFormat.Png);
+            }
+        }
+        
+        /// <summary>
+        /// Функция обработки события открытия меню <see cref="файлToolStripMenuItem"/>
+        /// </summary>
+        private void файлToolStripMenuItem_DropDownOpened(object sender, EventArgs e)
+        {   //если не открыто ни одно окно, то блокируем кнопки сохранения
+            if (CurrentMode.ActiveChild == null)
+            {
+                сохранитьToolStripMenuItem.Enabled = false;
+                сохранитьКакToolStripMenuItem.Enabled = false;
+            }//иначе разблокируем их
+            else
+            {
+                сохранитьToolStripMenuItem.Enabled = true;
+                сохранитьКакToolStripMenuItem.Enabled = true;
+            }
+        }
+        /// <summary>
+        /// Функция обработки события нажатия на кнопку "сохранить как"
+        /// <see cref="сохранитьКакToolStripMenuItem"/>
+        /// </summary>
+        private void сохранитьКакToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OneFileSaveDialog.FileName = CurrentMode.ActiveChild.FileName;
+            if (OneFileSaveDialog.ShowDialog() == DialogResult.OK)
+            {
+                CurrentMode.ActiveChild.SetNewFileName(OneFileSaveDialog.FileName);
+                CurrentMode.ActiveChild.FormImage.Save(OneFileSaveDialog.FileName, ImageFormat.Png);
+            }
         }
     }
 }

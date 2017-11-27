@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -15,35 +16,75 @@ namespace KPO_2
     /// </summary>
     public partial class frmChild : Form
     {
+        /// <summary>
+        /// Конструктор при новом изображении
+        /// </summary>
         public frmChild()
         {
             InitializeComponent();
+            NewFile = true;
+            FileName = "Изображение" + CurrentMode.NewFilesOpened;
+            Text = FileName;
         }
+
+        /// <summary>
+        /// Конструктор при открытии изображения
+        /// </summary>
+        /// <param name="image">Открываемое изображение</param>
+        public frmChild(Image image)
+        {
+            InitializeComponent();
+            NewFile = false;
+            TempImage = image;
+        }
+
         #region Поля
+        #region Работа с файлами
+        /// <summary>
+        /// Является ли создающееся изображение новым
+        /// </summary>
+        private bool NewFile;
+        /// <summary>
+        /// Свойство получения <see cref="NewFile"/>
+        /// </summary>
+        public bool GetNewFile { get => NewFile; }
+        /// <summary>
+        /// Имя файла текущего изображения
+        /// </summary>
+        public string FileName;
+        #endregion Работа с файлами
+        #region Рисование
+
         /// <summary>
         /// Стэк, хранящий предыдующие шаги
         /// </summary>
         private Stack<Image> PrevStack;
+
         /// <summary>
         /// Стэк, хранящий следующий шаги
         /// </summary>
         private Stack<Image> NextStack;
-         /// <summary>
+        
+        /// <summary>
         /// Координата предыдущего положения мыши
         /// </summary>
         int old_X, old_Y;
+        
         /// <summary>
         /// Временно сохранённое текущее изображение
         /// </summary>
         private Image TempImage;
+        
         /// <summary>
         /// Векторы для построения звезды
         /// </summary>
         static PointF[] startstar;
+        
         /// <summary>
         /// Количество концов звезды
         /// </summary>
         static  int StarNumber = 5;
+        
         /// <summary>
         /// Свойство получения вектора для построения звезды
         /// </summary>
@@ -80,21 +121,54 @@ namespace KPO_2
                 return startstar;
             }
         }     
+        
         /// <summary>
         /// Графика рабочего изображения
         /// </summary>
         private Graphics graphics;
+        
         /// <summary>
         /// Множитель увеличения
         /// </summary>
-        private static int Magn = 5;
+        private static int Magn = 2;
+        
+        #endregion Рисование
+
         /// <summary>
         /// Генератор случайных чисел, используемый в форме
         /// </summary>
         private static Random random = new Random();
+        
+        /// <summary>
+        /// Свойство текущего изображения
+        /// <para>Выводит свойство Image от <see cref="pictureBox1"/></para>
+        /// </summary>
+        public Image FormImage
+        {
+            get
+            {
+                return pictureBox1.Image;
+            }
+        }
         #endregion Поля
 
+        #region Функции
+
+        /// <summary>
+        /// Функция по установлению нового имени файла
+        /// <para>Устанавливает <see cref="FileName"/></para>
+        /// <para>Устанавливает <see cref="NewFile"/> как <see cref="false"/></para>
+        /// </summary>
+        /// <param name="_FileName">Новое имя файла</param>
+        public void SetNewFileName(string _FileName)
+        {
+            FileName = _FileName;
+            Text = FileName;
+            NewFile = false;
+        }
+
         #region Функции инструментов
+        
         /// <summary>
         /// Отмена изменения
         /// </summary>
@@ -110,6 +184,7 @@ namespace KPO_2
                 pictureBox1.Refresh();
             }
         }
+       
         /// <summary>
         /// Возвращение изменения
         /// </summary>
@@ -123,6 +198,7 @@ namespace KPO_2
                 pictureBox1.Refresh();
             }
         }
+        
         /// <summary>
         /// Получение массива координат вершин звезды
         /// </summary>
@@ -149,6 +225,7 @@ namespace KPO_2
             }
             return result;
         }
+        
         /// <summary>
         /// Событие перемещения мыши внутри изображения
         /// </summary>
@@ -188,22 +265,36 @@ namespace KPO_2
                 pictureBox1.Refresh();
             }
         }
+        
         /// <summary>
         /// Функция загрузки окна
         /// </summary>
         private void frmChild_Load(object sender, EventArgs e)
         {
-            //Устанавливаем новое изображение
-            pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-            //Получаем его графику
-            graphics = Graphics.FromImage(pictureBox1.Image);
-            //Очищаем и обновляем
-            graphics.Clear(Color.White);
+            if (NewFile)
+            {
+                //Устанавливаем новое изображение
+                pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+                //Получаем его графику
+                graphics = Graphics.FromImage(pictureBox1.Image);
+                //Очищаем и обновляем
+                graphics.Clear(Color.White);
+            }
+            else
+            {   //Устанавливаем размеры пикчербокса и устанавливаем изображение
+                pictureBox1.Width = TempImage.Width;
+                pictureBox1.Height = TempImage.Height;
+                pictureBox1.Image = TempImage;
+                //получаем графику
+                graphics = Graphics.FromImage(pictureBox1.Image);
+            }
+            //обновим пикчербокс
             pictureBox1.Refresh();
             //Создаём стэки
             PrevStack = new Stack<Image>();
             NextStack = new Stack<Image>();
         }
+        
         /// <summary>
         /// Функция отпуска кнопки мыши
         /// </summary>
@@ -240,6 +331,7 @@ namespace KPO_2
             PrevStack.Push(TempImage);
             NextStack.Clear();
         }
+        
         /// <summary>
         /// Функция "активации" окна
         /// </summary>
@@ -247,6 +339,7 @@ namespace KPO_2
         {
             CurrentMode.ActiveChild = this;
         }
+        
         /// <summary>
         /// Функция нажатия на кнопку мыши
         /// </summary>
@@ -257,14 +350,17 @@ namespace KPO_2
             old_Y = e.Y;
             TempImage = (Image)pictureBox1.Image.Clone();
         }
+        
         #endregion Функции инструментов
 
         #region Функции эффектов
+
         /// <summary>
         /// Функция эффекта №1 - инверсия???
         /// </summary>
         public void Effect1()
         {
+            Save_n_Push_Prev();
             Bitmap bitmap = new Bitmap(pictureBox1.Image);
             pictureBox1.Image = bitmap;
             Bitmap tempbmp = new Bitmap(pictureBox1.Image);
@@ -288,12 +384,16 @@ namespace KPO_2
                 }
                 pictureBox1.Refresh();
             }
+            Text = FileName;
+
         }
+        
         /// <summary>
         /// Функция эффекта 2 - усиление зелёного?
         /// </summary>
         public void Effect2()
         {
+            Save_n_Push_Prev();
             Bitmap bitmap = new Bitmap(pictureBox1.Image);
             pictureBox1.Image = bitmap;
             Bitmap tempbmp = new Bitmap(pictureBox1.Image);
@@ -318,12 +418,15 @@ namespace KPO_2
                 }
             }
             pictureBox1.Refresh();
+            Text = FileName;
         }
+
         /// <summary>
         /// Функция эффекта 3  - "размазывание"??
         /// </summary>
         public void Effect3()
         {
+            Save_n_Push_Prev();
             Bitmap bitmap = new Bitmap(pictureBox1.Image);
             pictureBox1.Image = bitmap;
             Bitmap tempbmp = new Bitmap(pictureBox1.Image);
@@ -373,36 +476,45 @@ namespace KPO_2
                 }
             }
             pictureBox1.Refresh();
+            Text = FileName;
         }
+
         /// <summary>
         /// Функция эффекта 4 - возвращение в нормальный режим просмотра
         /// </summary>
         public void Effect4()
         {
+            Save_n_Push_Prev();
             pictureBox1.Width = pictureBox1.Image.Width;
             pictureBox1.Height = pictureBox1.Image.Height;
         }
+
         /// <summary>
         /// Функция эффекта 5 - отдаление
         /// </summary>
         public void Effect5()
         {
+            Save_n_Push_Prev();
             pictureBox1.Width /= 2;
             pictureBox1.Height /= 2;
         }
+
         /// <summary>
         /// Функция эффекта 6 - приближение
         /// </summary>
         public void Effect6()
         {
+            Save_n_Push_Prev();
             pictureBox1.Width *= 2;
             pictureBox1.Height *= 2;
         }
+
         /// <summary>
         /// Функция эффекта 7 - блюр??
         /// </summary>
         public void Effect7()
         {
+            Save_n_Push_Prev();
             Bitmap bmap = new Bitmap(pictureBox1.Image);
             pictureBox1.Image = bmap;
             Bitmap tempbmp = new Bitmap(pictureBox1.Image);
@@ -426,39 +538,73 @@ namespace KPO_2
                 }
             }
             pictureBox1.Refresh();
+            Text = FileName;
         }
+
         /// <summary>
-        /// Функция эффекта 8 - поворот на 270 (кривой, надо фиксить)
+        /// Функция эффекта 8 - поворот на 270
         /// </summary>
         public void Effect8()
         {
+            Save_n_Push_Prev();
+            int tw = pictureBox1.Width, th = pictureBox1.Height;
             pictureBox1.Image.RotateFlip(RotateFlipType.Rotate270FlipNone);
-            pictureBox1.Width = pictureBox1.Height * pictureBox1.Image.Width / pictureBox1.Image.Height;
+            pictureBox1.Height = tw;
+            pictureBox1.Width = th;
+            pictureBox1.Update();
         }
+
         /// <summary>
-        /// Функция эффекта 9 - поворот на 90 (кривой, надо фиксить)
+        /// Функция эффекта 9 - поворот на 90 
         /// </summary>
         public void Effect9()
         {
+            Save_n_Push_Prev();
+            int tw = pictureBox1.Width, th = pictureBox1.Height;
             pictureBox1.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);
-            pictureBox1.Width = pictureBox1.Height * pictureBox1.Image.Width / pictureBox1.Image.Height;
+            pictureBox1.Height = tw;
+            pictureBox1.Width = th;
+            pictureBox1.Update();
         }
+
+
         /// <summary>
         /// Функция эффекта 10 - отражение по вертикали
         /// </summary>
         public void Effect10()
         {
+            Save_n_Push_Prev();
             pictureBox1.Image.RotateFlip(RotateFlipType.RotateNoneFlipX);
             pictureBox1.Refresh();
         }
+
         /// <summary>
         /// Функция эффекта 11 - отражение по горизонтали
         /// </summary>
         public void Effect11()
         {
+            Save_n_Push_Prev();
             pictureBox1.Image.RotateFlip(RotateFlipType.RotateNoneFlipY);
             pictureBox1.Refresh();
         }
+
         #endregion Функции эффектов
+
+        /// <summary>
+        /// Функция добавления текущего изображения перед изменением
+        /// <para>Помещает изображение в <see cref="PrevStack"/></para>
+        /// <para>Очищает <see cref="NextStack"/></para>
+        /// <para>Использовать только в функциях эффекта</para>
+        /// </summary>
+        void Save_n_Push_Prev()
+        {
+            TempImage = (Image)pictureBox1.Image.Clone();
+            PrevStack.Push(TempImage);
+            NextStack.Clear();
+        }
+
+
+        #endregion Функции
     }
 }
+

@@ -91,5 +91,25 @@ namespace KPO_2
         /// <para>Индекс текущей ширины хранится в <see cref="curWidth"/></para>
         /// </summary>
         public static float[] WidthOptions = { 1,2,2.5F,3,3.5F,4};
+        /// <summary>
+        /// Счётчик для хранения количенства открытых "новых файлов"
+        /// </summary>
+        private static int newFilesCounter = 0;
+        /// <summary>
+        /// Свойство для получения количества открытых "новых файлов" 
+        /// <para>Получает значение из <see cref="newFilesCounter"/></para>
+        /// </summary>
+        public static int NewFilesOpened
+        {
+            get
+            {
+                return newFilesCounter;
+            }
+        }
+        /// <summary>
+        /// Функция увеличения счётчика количества открытых "новых файлов"
+        /// <para>Инкрементирует <see cref="newFilesCounter"/></para>
+        /// </summary>
+        public static void NewFilesCounterInc() => ++newFilesCounter;
     }
 }
