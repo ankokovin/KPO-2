@@ -75,52 +75,7 @@ namespace KPO_2
         /// </summary>
         private Image TempImage;
         
-        /// <summary>
-        /// Векторы для построения звезды
-        /// </summary>
-        static PointF[] startstar;
-        
-        /// <summary>
-        /// Количество концов звезды
-        /// </summary>
-        static  int StarNumber = 5;
-        
-        /// <summary>
-        /// Свойство получения вектора для построения звезды
-        /// </summary>
-        static PointF[] GetStartStar
-        {
-            get
-            {//Если уже сохранёны векторы - просто вывести
-                if (startstar != null) return startstar;
-                //Получаемый массив векторов
-                PointF[] result = new PointF[StarNumber*2];
-                //Начальный угол
-                double u = Math.PI / 2;
-                //Изменение угла
-                double du = Math.PI / StarNumber;
-                //Радиус внешний
-                double r1 = 1;
-                //Радиус внутренний - формула вычисления из википедии
-                double r2 = Math.Cos(Math.PI / 5 * 2) / Math.Cos(Math.PI / 5) * r1;
-                for (int i = 0; i < result.Length; i++)
-                {
-                    if (i % 2 == 0)//Если чётно - по внешней окр
-                    {
-                        result[i].X = (float)(r1 * Math.Cos(u));
-                        result[i].Y = (float)(- r1 * Math.Sin(u));
-                    }
-                    else //иначе по внутренней
-                    {
-                        result[i].X = (float)(r2 * Math.Cos(u));
-                        result[i].Y = (float)(- r2 * Math.Sin(u));
-                    }
-                    u += du;
-                }
-                startstar = result;
-                return startstar;
-            }
-        }     
+       
         
         /// <summary>
         /// Графика рабочего изображения
@@ -131,8 +86,20 @@ namespace KPO_2
         /// Множитель увеличения
         /// </summary>
         private static int Magn = 2;
-        
+
         #endregion Рисование
+        /// <summary>
+        /// Были ли изменения
+        /// </summary>
+        private bool _wasChanged = false;
+        /// <summary>
+        /// Свойство были ли изменения
+        /// </summary>
+        public bool WasChanged { get { return _wasChanged; } set
+            {
+                if (value) _wasChanged = true;
+            }
+            }
 
         /// <summary>
         /// Генератор случайных чисел, используемый в форме
@@ -176,12 +143,12 @@ namespace KPO_2
         {
             if (PrevStack.Count != 0)
             {
-                
                 NextStack.Push((Image)pictureBox1.Image.Clone());
                 Image image = PrevStack.Pop();
                 pictureBox1.Image = image;
                 graphics = Graphics.FromImage(pictureBox1.Image);
                 pictureBox1.Refresh();
+                _wasChanged = PrevStack.Count != 0;
             }
         }
        
@@ -196,6 +163,7 @@ namespace KPO_2
                 pictureBox1.Image = NextStack.Pop();
                 graphics = Graphics.FromImage(pictureBox1.Image);
                 pictureBox1.Refresh();
+                WasChanged = true;
             }
         }
         
@@ -210,8 +178,8 @@ namespace KPO_2
         private Point[] GetStarPoints(int x, int y,int x1, int y1)
         {
             //Получаем векторы для построения звезды
-            PointF[] vec = GetStartStar;
-            Point[] result = new Point[StarNumber*2];
+            PointF[] vec = CurrentMode.GetStartStar;
+            Point[] result = new Point[CurrentMode.StarNumber*2];
             //Вычисляем координаты центра звезды
             int cx = Math.Abs(x + x1) / 2, cy = Math.Abs(y + y1) / 2;
             //Вычисляем коэффициенты увеличения координат
@@ -349,6 +317,7 @@ namespace KPO_2
             old_X = e.X;
             old_Y = e.Y;
             TempImage = (Image)pictureBox1.Image.Clone();
+            WasChanged = true;
         }
         
         #endregion Функции инструментов
@@ -598,6 +567,7 @@ namespace KPO_2
         /// </summary>
         void Save_n_Push_Prev()
         {
+            WasChanged = true;
             TempImage = (Image)pictureBox1.Image.Clone();
             PrevStack.Push(TempImage);
             NextStack.Clear();

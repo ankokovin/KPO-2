@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
+
 namespace KPO_2
 {
     /// <summary>
@@ -26,17 +27,19 @@ namespace KPO_2
         {
             InitializeComponent();
         }
+
         /// <summary>
         /// Список отображений ширины
         /// </summary>
         private List<Bitmap> WidthLook;
+
         /// <summary>
-        /// Функция обновления <see cref="WidthLook"/>
+        /// Функция обновления <see cref="WidthLook1"/>
         /// </summary>
         private void UpdateWidthLook()
         {
             //очищаем список
-            WidthLook.Clear();
+            WidthLook1.Clear();
             //для каждой опции ширины
             for (int i = 0; i < CurrentMode.WidthOptions.Length; i++)
             {   //создаём ручку
@@ -48,30 +51,30 @@ namespace KPO_2
                 //по середине изображения рисуем горизонтальную линию
                 graphics.DrawLine(pen, 0, bitmap.Height / 2, bitmap.Width, bitmap.Height / 2);
                 //добавляем полученное изображение в список
-                WidthLook.Add(bitmap);
+                WidthLook1.Add(bitmap);
             }
             //обновляем отображение 
             UpdatePenWidthImage();
         }
+
         /// <summary>
         /// Функция обновления отображения текущей ширины на <see cref="pbPenWidthImage"/>
-        /// <para>Используется изображение из <see cref="WidthLook"/>, соответствуещее текущей ширине</para>
+        /// <para>Используется изображение из <see cref="WidthLook1"/>, соответствуещее текущей ширине</para>
         /// </summary>
         private void UpdatePenWidthImage()
         {
             //Изображения пикчербокса присвоим соответствующее изображение из списка
-            pbPenWidthImage.Image = WidthLook[CurrentMode.curWidth];
+            pbPenWidthImage.Image = WidthLook1[CurrentMode.curWidth];
             //Обновим пикчербокс
             pbPenWidthImage.Update();
         }
-
 
         /// <summary>
         /// Событие нажатия на пункт "Выход"
         /// </summary>
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Environment.Exit(0);
+            Close();
         }
 
         /// <summary>
@@ -86,7 +89,6 @@ namespace KPO_2
             
         }
 
-
         /// <summary>
         /// Графика для изображения текущего цвета
         /// </summary>
@@ -97,29 +99,30 @@ namespace KPO_2
         /// </summary>
         private void UpdateColorIcon()
         {
-            ColorChangeGraphics.DrawRectangle(Pens.Black, 0, 0, ChangeColorButton.Image.Width, ChangeColorButton.Image.Height);
-            ColorChangeGraphics.DrawRectangle(Pens.White, 1, 1, ChangeColorButton.Image.Width - 2, ChangeColorButton.Image.Height - 2);
-            ColorChangeGraphics.FillRectangle(new SolidBrush(CurrentMode.Color), 2, 2, ChangeColorButton.Image.Width - 4, ChangeColorButton.Image.Height - 4);
+            ColorChangeGraphics1.DrawRectangle(Pens.Black, 0, 0, ChangeColorButton.Image.Width, ChangeColorButton.Image.Height);
+            ColorChangeGraphics1.DrawRectangle(Pens.White, 1, 1, ChangeColorButton.Image.Width - 2, ChangeColorButton.Image.Height - 2);
+            ColorChangeGraphics1.FillRectangle(new SolidBrush(CurrentMode.Color), 2, 2, ChangeColorButton.Image.Width - 4, ChangeColorButton.Image.Height - 4);
         }
+
         /// <summary>
         /// Функция обработки события загрузки окна <see cref="frmMain"/>
         /// </summary>
         private void frmMain_Load(object sender, EventArgs e)
         {
             //Устанавливаем цвет бэкграунда кнопки инструмента по-умолчананию
-            DefaultBGColor = PenButton.BackColor;
+            DefaultBGColor1 = PenButton.BackColor;
             //Устанавливаем активную кнопку - без инструмента
-            ActiveTool = NoToolButton;
+            ActiveTool1 = NoToolButton;
             //Окрашиваем активную кнопку
             NoToolButton.BackColor = Color.Red;
             //Создаём изображение на кнопке изменения цвета
             ChangeColorButton.Image = new Bitmap(ChangeColorButton.Width, ChangeColorButton.Height);
             //Получаем графику этого изображения
-            ColorChangeGraphics = Graphics.FromImage(ChangeColorButton.Image);
+            ColorChangeGraphics1 = Graphics.FromImage(ChangeColorButton.Image);
             //Обнавляем цвет икноки цвета
             UpdateColorIcon();
             //Создаём список отображения ширины
-            WidthLook = new List<Bitmap>(CurrentMode.WidthOptions.Length);
+            WidthLook1 = new List<Bitmap>(CurrentMode.WidthOptions.Length);
             //Обновляем этот список
             UpdateWidthLook();
             //Заполняем домейн ширин
@@ -128,7 +131,10 @@ namespace KPO_2
                     domainPenWidth.Items.Add(x);
                 }
             domainPenWidth.SelectedIndex = 0;
+
+            domainStarCount.SelectedIndex = 0;
         }
+
         /// <summary>
         /// Событие нажатия на кнопку смены цвета
         /// </summary>
@@ -139,6 +145,7 @@ namespace KPO_2
             UpdateColorIcon();
             UpdateWidthLook();
         }
+
         /// <summary>
         /// Стандартный цвет бэкграунда кнопок инструмента
         /// </summary>
@@ -148,6 +155,26 @@ namespace KPO_2
         /// Кнопка используемого инструмента
         /// </summary>
         private ToolStripButton ActiveTool;
+
+        /// <summary>
+        /// Свойство для <see cref="WidthLook"/>
+        /// </summary>
+        public List<Bitmap> WidthLook1 { get => WidthLook; set => WidthLook = value; }
+
+        /// <summary>
+        /// Свойство для <see cref="ColorChangeGraphics"/>
+        /// </summary>
+        public Graphics ColorChangeGraphics1 { get => ColorChangeGraphics; set => ColorChangeGraphics = value; }
+
+        /// <summary>
+        /// Свойство для <see cref="DefaultBGColor"/>
+        /// </summary>
+        public Color DefaultBGColor1 { get => DefaultBGColor; set => DefaultBGColor = value; }
+
+        /// <summary>
+        /// Свойство для <see cref="ActiveTool"/>
+        /// </summary>
+        public ToolStripButton ActiveTool1 { get => ActiveTool; set => ActiveTool = value; }
 
         /// <summary>
         /// Функция нажатия на кнопку инструмента
@@ -186,9 +213,10 @@ namespace KPO_2
                     throw new Exception("Неожиданное имя кнопки");
             }
             button.BackColor = Color.Red;
-            if (ActiveTool != null) ActiveTool.BackColor = DefaultBGColor;
-            ActiveTool = button;
+            if (ActiveTool1 != null) ActiveTool1.BackColor = DefaultBGColor1;
+            ActiveTool1 = button;
         }
+
         /// <summary>
         /// Функция нажатия кнопки "Назад"
         /// </summary>
@@ -196,6 +224,7 @@ namespace KPO_2
         {
             CurrentMode.ActiveChild.Cancel();
         }
+
         /// <summary>
         /// Функция нажатия кнопки "Вперёд"
         /// </summary>
@@ -203,6 +232,7 @@ namespace KPO_2
         {
             CurrentMode.ActiveChild.Return();
         }
+
         /// <summary>
         /// Функция обработки события нажатия на кнопку функции
         /// </summary>
@@ -249,6 +279,7 @@ namespace KPO_2
                     throw new Exception("Неизвестный пункт меню");
             }
         }
+
         /// <summary>
         /// Функция обработки события изменения <see cref="domainPenWidth"/>
         /// </summary>
@@ -259,6 +290,7 @@ namespace KPO_2
             //Обновляем отображение текущей ширины
             UpdatePenWidthImage();
         }
+
         /// <summary>
         /// Функция обработки события открытия файла
         /// </summary>
@@ -276,6 +308,7 @@ namespace KPO_2
             }
             
         }
+
         /// <summary>
         /// Функция обработки события нажатия на кнопку "сохранить"
         /// <see cref="сохранитьToolStripMenuItem"/>
@@ -287,7 +320,7 @@ namespace KPO_2
                 сохранитьКакToolStripMenuItem_Click(sender, e);
             }else
             {   //иначе просто сохраняем
-                CurrentMode.ActiveChild.FormImage.Save(CurrentMode.ActiveChild.FileName,ImageFormat.Png);
+                CurrentMode.ActiveChild.FormImage.Save(CurrentMode.ActiveChild.FileName,ImageFormat.Bmp);
             }
         }
         
@@ -307,6 +340,7 @@ namespace KPO_2
                 сохранитьКакToolStripMenuItem.Enabled = true;
             }
         }
+
         /// <summary>
         /// Функция обработки события нажатия на кнопку "сохранить как"
         /// <see cref="сохранитьКакToolStripMenuItem"/>
@@ -317,7 +351,75 @@ namespace KPO_2
             if (OneFileSaveDialog.ShowDialog() == DialogResult.OK)
             {
                 CurrentMode.ActiveChild.SetNewFileName(OneFileSaveDialog.FileName);
-                CurrentMode.ActiveChild.FormImage.Save(OneFileSaveDialog.FileName, ImageFormat.Png);
+                CurrentMode.ActiveChild.FormImage.Save(OneFileSaveDialog.FileName, ImageFormat.Bmp);
+            }
+        }
+
+        /// <summary>
+        /// Функция обработки изменения выбранного количества  концов звезды <see cref="CurrentMode.starNumber"/>
+        /// </summary>
+        private void domainStarCount_SelectedItemChanged(object sender, EventArgs e)
+        {
+            CurrentMode.StarNumber = int.Parse(domainStarCount.Text);
+        }
+
+        /// <summary>
+        /// Функция обработки выбора расстановки окон каскадом
+        /// </summary>
+        private void каскадомToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LayoutMdi(MdiLayout.Cascade);
+        }
+
+        /// <summary>
+        /// Функция обработки выбора расстановки окон слева направо
+        /// </summary>
+        private void слеваНаправоToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LayoutMdi(MdiLayout.TileHorizontal);
+        }
+
+        /// <summary>
+        /// Функция обработки выбора расстановки окон сверху вниз
+        /// </summary>
+        private void сверхуВнизToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LayoutMdi(MdiLayout.TileVertical);
+        }
+
+        /// <summary>
+        /// Функция обработки выбора расстановки упорядлчить значки
+        /// </summary>
+        private void упорядочитьЗначкиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LayoutMdi(MdiLayout.ArrangeIcons);
+        }
+
+        /// <summary>
+        /// Функция обработки закрытия приложения
+        /// <para>Вызывается закрытием главной формы или нажатием кнопки меню файл "Выход" 
+        /// <see cref="выходToolStripMenuItem"/> </para>
+        /// </summary>
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            List<frmChild> ChildList = new List<frmChild>();
+            for (int i = 0; i < MdiChildren.Length; i++)
+            {
+                frmChild frmChild = MdiChildren[i] as frmChild;
+                if (frmChild.WasChanged) ChildList.Add(frmChild);
+            }
+            if (ChildList.Count!=0 &&
+                MessageBox.Show("Сохранить открытые изображения?", "", 
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                foreach( frmChild frmChild in ChildList)
+                {
+                    ActivateMdiChild(frmChild);
+                    if (frmChild.WasChanged)
+                    {
+                        сохранитьToolStripMenuItem_Click(sender, e);
+                    }
+                }
             }
         }
     }

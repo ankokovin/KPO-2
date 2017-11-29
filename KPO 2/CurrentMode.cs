@@ -111,5 +111,63 @@ namespace KPO_2
         /// <para>Инкрементирует <see cref="newFilesCounter"/></para>
         /// </summary>
         public static void NewFilesCounterInc() => ++newFilesCounter;
+
+        /// <summary>
+        /// Количество концов звезды
+        /// </summary>
+        static int starNumber = 2;
+        
+        /// <summary>
+        /// Свойство количество концов звезды
+        /// <para>Именяет и выдаёт <see cref="starNumber"/></para>
+        /// </summary>
+        public static int StarNumber { get=>starNumber;
+            set {  //при изменении - удаляем массив преподсчёта
+                startstar = null;
+                starNumber = value;
+            }
+        }
+        
+        /// <summary>
+        /// Векторы для построения звезды
+        /// </summary>
+        static PointF[] startstar;
+        
+        /// <summary>
+        /// Свойство получения вектора для построения звезды
+        /// </summary>
+        public static PointF[] GetStartStar
+        {
+            get
+            {//Если уже сохранёны векторы - просто вывести
+                if (startstar != null) return startstar;
+                //Получаемый массив векторов
+                PointF[] result = new PointF[StarNumber * 2];
+                //Начальный угол
+                double u = Math.PI / 2;
+                //Изменение угла
+                double du = Math.PI / StarNumber;
+                //Радиус внешний
+                double r1 = 1;
+                //Радиус внутренний - формула вычисления из википедии
+                double r2 = Math.Cos(Math.PI / 5 * 2) / Math.Cos(Math.PI / 5) * r1;
+                for (int i = 0; i < result.Length; i++)
+                {
+                    if (i % 2 == 0)//Если чётно - по внешней окр
+                    {
+                        result[i].X = (float)(r1 * Math.Cos(u));
+                        result[i].Y = (float)(-r1 * Math.Sin(u));
+                    }
+                    else //иначе по внутренней
+                    {
+                        result[i].X = (float)(r2 * Math.Cos(u));
+                        result[i].Y = (float)(-r2 * Math.Sin(u));
+                    }
+                    u += du;
+                }
+                startstar = result;
+                return startstar;
+            }
+        }
     }
 }
