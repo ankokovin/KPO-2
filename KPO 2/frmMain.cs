@@ -408,19 +408,27 @@ namespace KPO_2
                 frmChild frmChild = MdiChildren[i] as frmChild;
                 if (frmChild.WasChanged) ChildList.Add(frmChild);
             }
-            if (ChildList.Count!=0 &&
-                MessageBox.Show("Сохранить открытые изображения?", "", 
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                foreach( frmChild frmChild in ChildList)
+            if (ChildList.Count != 0) {
+                var DialRes =
+                MessageBox.Show("Сохранить открытые изображения?", "",
+                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                switch (DialRes)
                 {
-                    ActivateMdiChild(frmChild);
-                    if (frmChild.WasChanged)
+                    case DialogResult.Yes:
+                    foreach (frmChild frmChild in ChildList)
                     {
-                        сохранитьToolStripMenuItem_Click(sender, e);
+                        ActivateMdiChild(frmChild);
+                        if (frmChild.WasChanged)
+                        {
+                            сохранитьToolStripMenuItem_Click(sender, e);
+                        }
                     }
+                        break;
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        break;
                 }
-            }
+            } 
         }
     }
 }
